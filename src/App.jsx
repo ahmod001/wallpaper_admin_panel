@@ -14,6 +14,8 @@ import WallpaperEdit from './Components/WallpaperManeger/WallpaperEdit/Wallpaper
 import WallpaperAdd from './Components/WallpaperManeger/WallpaperAdd/WallpaperAdd';
 import CategoryAdd from './Components/CategoryManeger/CategoryAdd/CategoryAdd';
 import CategoryEdit from './Components/CategoryManeger/CategoryEdit/CategoryEdit';
+import Settings from './Components/Settings/Settings';
+
 
 export const AdminContext = createContext();
 
@@ -39,6 +41,7 @@ function App() {
             <Route path='/wallpapers/edit/:wallpaperId' element={<WallpaperEdit />} />
             <Route path='/categories/add' element={<CategoryAdd />} />
             <Route path='/categories/edit/:categoryId' element={<CategoryEdit />} />
+            <Route path='/settings' element={<Settings />} />
             <Route path='/*' element={<PageNotFound />} />
 
           </Route>
