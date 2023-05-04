@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background-color: #0c111b;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Theme elements background-color */
+.navyBlue {
+  background-color: #1a2234;
+}
+
+a:hover {
+  color: white;
+
+}
+
+/* style for all table */
+th,
+td {
+  border: 1px solid rgba(169, 169, 169, 0.2);
+  border-collapse: collapse;
+}
