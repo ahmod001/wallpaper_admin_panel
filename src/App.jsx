@@ -15,6 +15,7 @@ import WallpaperAdd from './Components/WallpaperManeger/WallpaperAdd/WallpaperAd
 import CategoryAdd from './Components/CategoryManeger/CategoryAdd/CategoryAdd';
 import CategoryEdit from './Components/CategoryManeger/CategoryEdit/CategoryEdit';
 import Settings from './Components/Settings/Settings';
+import AdMobAds from './Components/AdMobAds/AdMobAds';
 
 
 export const AdminContext = createContext();
@@ -42,8 +43,8 @@ function App() {
             <Route path='/categories/add' element={<CategoryAdd />} />
             <Route path='/categories/edit/:categoryId' element={<CategoryEdit />} />
             <Route path='/settings' element={<Settings />} />
+            <Route path='/ads' element={<AdMobAds />} />
             <Route path='/*' element={<PageNotFound />} />
-
           </Route>
           <Route path='/sign_in' element={<SignIn />} />
         </Routes>

@@ -1,18 +1,18 @@
 import React, { useMemo, useState } from 'react';
 import { Button, FormControl, Input, InputLabel, MenuItem, Select, TextField, Tooltip } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack, List } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 const FormEditor = (properties) => {
     const { add, edit, targetName, editingComponentObject, titleLabel, imgLabel, goBackLocation, actionHandler } = properties;
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [currentWallpaperSrc, setCurrentWallpaperSrc] = useState('')
+    const { register, handleSubmit } = useForm();
+    const [currentImageSrc, setCurrentImageSrc] = useState('')
     const navigate = useNavigate();
 
     useMemo(() => {
-        edit && setCurrentWallpaperSrc(editingComponentObject.img)
+        edit && setCurrentImageSrc(editingComponentObject.img)
     }, [])
 
 
@@ -23,15 +23,17 @@ const FormEditor = (properties) => {
 
     return (
         <section className='container tw-min-h-screen container tw-mt-4 mb-5'>
-            <div className='container navyBlue px-4 py-3 pb-3 tw-space-y-5 tw-rounded-md '>
+            <div className='container navyBlue px-4 py-3 pb-4 tw-space-y-10 tw-rounded-md '>
+
                 {/* GO Back Button */}
                 <Button variant="text" onClick={() => navigate(goBackLocation)} color='error' size='large' startIcon={<ArrowBack fontSize='inherit' />}>
                     Back
                 </Button>
 
+
                 {/* Form */}
                 <form onSubmit={handleSubmit(onSubmit)}
-                    className='tw-space-y-6 sm:tw-w-11/12'>
+                    className='tw-space-y-5 sm:tw-w-11/12'>
 
                     {/* Title */}
                     <div className='row'>
@@ -45,7 +47,7 @@ const FormEditor = (properties) => {
                             autoFocus={add ? true : false} fullWidth variant='filled' />
                     </div>
 
-                    {/* Category */}
+                    {/*Select Category */}
                     {targetName.toLowerCase() === 'wallpaper' ? <div className='row'>
                         <label className='col-md-3 lg:tw-text-lg col-4 tw-tracking-wide  tw-font-semibold' htmlFor="title">Category</label>
 
@@ -66,16 +68,19 @@ const FormEditor = (properties) => {
                         </FormControl>
                     </div>
 
-                        // Description 
+                        // Enter Description //
                         : <div className='row'>
                             <label className='col-md-3 lg:tw-text-lg col-4 tw-tracking-wide  tw-font-semibold' htmlFor="title">Description</label>
 
                             <TextField variant='filled' size='small'
                                 hiddenLabel
-                                placeholder={'Enter Description'}
+                                placeholder={`${targetName.toLowerCase() === 'ad' ? 'Enter Description*' : 'Enter Description'}`}
                                 multiline
                                 rows={2}
-                                {...register('description')}
+                                required={targetName.toLowerCase() === 'ad' ? true : false}
+
+                                {...register('description', { required: targetName.toLowerCase() === 'ad' ? true : false })}
+
                                 defaultValue={edit ? editingComponentObject.description : ''}
                                 className='col' color='error' fullWidth>
 
@@ -86,12 +91,14 @@ const FormEditor = (properties) => {
                     <div className='row'>
                         <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide  tw-font-semibold' htmlFor="title">{imgLabel}</label>
                         <div className='col tw-px-0 tw-space-y-4'>
-                            <Tooltip title='Select Image File' placement='top-start'>
+
+                            {/*Select Image File */}
+                            {targetName.toLowerCase() !== 'ad' ? <Tooltip title='Select Image File' placement='top-start'>
                                 <TextField hiddenLabel
                                     inputProps={{
                                         accept: "image/*",
                                         onChange: (e) => {
-                                            return (setCurrentWallpaperSrc(URL.createObjectURL(e.target.files[0])))
+                                            return (setCurrentImageSrc(URL.createObjectURL(e.target.files[0])))
                                         }
                                     }}
 
@@ -100,22 +107,35 @@ const FormEditor = (properties) => {
                                     color='action' fullWidth type='file' />
                             </Tooltip>
 
+                                // Enter Image URL //
+                                : <TextField
+                                    label='Enter URL'
+                                    placeholder='https://banner.jpg'
+                                    variant='filled'
+                                    defaultValue={currentImageSrc}
+                                    {...register('img_url', { required: true })} required
+                                    color='error' fullWidth type='url'
+                                    onBlur={(e) => {
+                                        setCurrentImageSrc(e.target.value)
+                                        console.log(e.target.value);
+                                    }} />}
+
                             {/*Selected Image preview will show here*/}
-                            <img src={currentWallpaperSrc}
-                                className={`${!currentWallpaperSrc && 'tw-hidden'} tw-rounded-md tw-pointer-events-none tw-object-cover tw-h-44`} alt='' />
+                            <img src={currentImageSrc}
+                                className={`${!currentImageSrc && 'tw-hidden'} tw-rounded-md tw-pointer-events-none tw-object-cover tw-h-44`} alt={targetName + ' ' + imgLabel} />
                         </div>
                     </div>
 
-                    {/* Wallpaper Tags */}
+                    {/*Enter Image Tags */}
                     {targetName.toLowerCase() === 'wallpaper' && <div className='row'>
-                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide tw-font-semibold' htmlFor="title">Wallpaper Tags </label>
+                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide tw-font-semibold' htmlFor="title">Image Tags </label>
                         <TextField
                             defaultValue={edit ? editingComponentObject.tags : ''}
                             {...register('wallpaper_tags')}
                             className='col' type='text' label='Enter Tags' color='error' placeholder='Car, Racing, Game' fullWidth variant='filled' />
                     </div>}
 
-                    {/* Status */}
+                    {/*Select Status */}
                     {targetName.toLowerCase() === 'wallpaper' && <div className='row'>
                         <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide tw-font-semibold' htmlFor="title">Status</label>
 
@@ -132,6 +152,16 @@ const FormEditor = (properties) => {
                                 </Select>
                             </FormControl>
                         </Tooltip>
+                    </div>}
+
+                    {/* Add Affiliate Link */}
+                    {targetName.toLowerCase() === 'ad' && <div className='row'>
+                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide tw-font-semibold' htmlFor="title"> Affiliate Link</label>
+
+                        <TextField
+                            defaultValue={edit ? editingComponentObject.affiliate_link : ''}
+                            {...register('affiliate_link', { required: true })}
+                            className='col' type='url' label='Enter Link' color='error' placeholder='https://example.com' required fullWidth variant='filled' />
                     </div>}
 
                     {/* Submit*/}

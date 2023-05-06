@@ -7,7 +7,6 @@ export const fakeTable = [
     { id: 2, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
     { id: 3, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
     { id: 4, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
-    { id: 5, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
     
 ]
 
@@ -31,8 +30,6 @@ const WallpaperStatistics = () => {
                                 <i className='bi bi-heart-fill me-1 tw-text-xs' />Favorites</th>
                             <th className='tw-px-4 tw-py-2'>
                                 <i className='bi bi-download me-1 tw-text-sm' />Downloads</th>
-                            <th className='tw-px-4 tw-py-2'>
-                                <i className='bi bi-check2-square me-1 tw-text-sm' />Used</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,8 +55,6 @@ const WallpaperStatistics = () => {
                                     {/* Downloads */}
                                     <td className='tw-px-4 tw-py-2'>{table.downloads}</td>
 
-                                    {/* Used */}
-                                    <td className='tw-px-4 tw-py-2'>{table.used}</td>
                                 </tr>
                             );
                         })}

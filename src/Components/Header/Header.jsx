@@ -2,11 +2,13 @@ import { Button, Tooltip } from '@mui/material';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminContext } from '../../App';
+import { getLocalStorage } from '../../assets/appStorage/appStorage';
 
 const Header = ({ CollapseHandler }) => {
     const { CurrentPage } = useContext(AdminContext)
     const [currentPage, setCurrentPage] = CurrentPage;
     const navigate = useNavigate()
+    const profilePicture = getLocalStorage('profilePicture')
 
     return (
         <header className="navyBlue tw-sticky tw-top-0 sm:tw-h-20 tw-h-16 px-3 tw-flex tw-justify-between tw-z-40">
@@ -22,7 +24,7 @@ const Header = ({ CollapseHandler }) => {
             <Tooltip title="Settings" placement="left">
                 <Button onClick={() => navigate('/settings')}
                     variant='text' className='tw-h-16 my-auto'>
-                    <img src='/admin.jpg' alt="admin" className=" tw-rounded-full m-auto tw-w-9 tw-object-cover tw-h-9" />
+                    <img src={profilePicture ? profilePicture : '/admin.jpg'} alt="admin" className=" tw-rounded-full m-auto tw-w-9 tw-object-cover tw-h-9" />
                 </Button>
             </Tooltip>
         </header>

@@ -1,54 +1,136 @@
-import { Button, TextField, Tooltip } from '@mui/material';
-import React from 'react';
+import { Button, Checkbox, FormControlLabel, FormHelperText, TextField, Tooltip } from '@mui/material';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { setLocalStorage } from '../../assets/appStorage/appStorage';
+import { AdminContext } from "../../App";
+
+// FakeAdmin
+const fakeAdmin = {
+    name: 'Admin',
+    email: 'admin@gmail.com',
+    password: 'admin1234',
+    img: 'https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e1377d4/_orig/pixomatic_1572877223091.png'
+}
 
 const Settings = () => {
-    
+    // Using Context API
+    const { CurrentPage } = useContext(AdminContext)
+    const [currentPage, setCurrentPage] = CurrentPage;
+    setTimeout(() => {
+        setCurrentPage('Settings')
+    }, 1);
+    setLocalStorage('componentId', 7)
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [passwordShow, setPassWordShow] = useState(false);
+    const [admin, setAdmin] = useState({});
+    const [profilePicture, setProfilePicture] = useState('/admin.jpg');
+
+    // Get Data
+    useMemo(() => {
+        setAdmin(fakeAdmin)
+        setProfilePicture(fakeAdmin.img)
+        setLocalStorage('profilePicture', fakeAdmin.img)
+    }, [])
+
+    // Submit Button handler//
+    const onSubmit = (data) => {
+        console.log(data);
+    }
     return (
         <section className='container tw-min-h-screen container tw-mt-4 mb-5'>
-            <div className='container navyBlue px-4 py-3 pb-3 tw-space-y-5 tw-rounded-md '>
-                {/* GO Back Button */}
-                <Button variant="text" onClick={() => navigate(goBackLocation)} color='error' size='large' startIcon={<ArrowBack fontSize='inherit' />}>
-                    Back
-                </Button>
+            <div className='container navyBlue px-4 py-3 pb-4 tw-space-y-12 tw-rounded-md '>
 
-                {/* Form */}
+                {/*Profile Picture Preview will show here*/}
+                <img src={profilePicture}
+                    className={`tw-rounded-md tw-pointer-events-none tw-object-center tw-object-cover tw-ring-4 tw-ring-gray-700 tw-shadow-gray-500 tw-shadow-md lg:tw-w-44 lg:tw-h-44 tw-w-36 tw-h-36`} alt='Profile-picture' />
+
                 <form onSubmit={handleSubmit(onSubmit)}
-                    className='tw-space-y-6 sm:tw-w-11/12'>
-
-                    {/* Title */}
-                    <div className='row'>
-                        <label className='col-md-3 col-4 tw-tracking-wide lg:tw-text-lg tw-font-semibold' htmlFor="title">{titleLabel}</label>
-                        <TextField
-                            required defaultValue={edit ? editingComponentObject[titleLabel.toLowerCase()] : ''}
-                            {...register(`${titleLabel.toLowerCase()}`, { required: true })}
-                            className='col' size='normal' type='text'
-                            hiddenLabel
-                            placeholder={`Enter ${targetName} ${titleLabel}*`} color='error'
-                            autoFocus={add ? true : false} fullWidth variant='filled' />
-                    </div>
+                    className='tw-space-y-4 sm:tw-w-11/12'>
 
                     {/* Image */}
                     <div className='row'>
-                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide  tw-font-semibold' htmlFor="title">{imgLabel}</label>
+                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide  tw-font-semibold' htmlFor="title">Image</label>
                         <div className='col tw-px-0 tw-space-y-4'>
-                            <Tooltip title='Select Image File' placement='top-start'>
+                            <Tooltip title='Select Profile Picture' placement='top-start'>
                                 <TextField hiddenLabel
                                     inputProps={{
                                         accept: "image/*",
                                         onChange: (e) => {
-                                            return (setCurrentWallpaperSrc(URL.createObjectURL(e.target.files[0])))
+                                            return (setProfilePicture(URL.createObjectURL(e.target.files[0])))
                                         }
                                     }}
 
                                     variant='filled' size='normal'
-                                    {...register('img', { required: edit ? false : true })} required={edit ? false : true}
+                                    {...register('img', { required: true })}
+                                    required
                                     color='action' fullWidth type='file' />
                             </Tooltip>
-
-                            {/*Selected Image preview will show here*/}
-                            <img src={currentWallpaperSrc}
-                                className={`${!currentWallpaperSrc && 'tw-hidden'} tw-rounded-md tw-pointer-events-none tw-object-cover tw-h-44`} alt='' />
                         </div>
+                    </div>
+
+                    {/* Name */}
+                    <div className='row'>
+                        <label className='col-md-3 col-4 tw-tracking-wide lg:tw-text-lg tw-font-semibold' htmlFor="title">Name</label>
+
+                        <TextField
+                            className='col'
+                            required
+                            value={admin ? admin.name : ''}
+                            {...register('name', { required: true })}
+                            type='text'
+                            hiddenLabel
+                            placeholder='Enter your name*' color='error'
+                            fullWidth variant='filled' />
+                    </div>
+
+                    {/* Email */}
+                    <div className='row'>
+                        <label className='col-md-3 col-4 tw-tracking-wide lg:tw-text-lg tw-font-semibold' htmlFor="title">Email</label>
+
+                        <TextField
+                            defaultValue={admin ? admin.email : ''}
+                            className='col'
+                            required
+                            {...register('email', { required: true, pattern: /^\S+@\S+\.\S+$/ })}
+                            type='text'
+                            hiddenLabel
+                            helperText={errors.email &&
+                                <FormHelperText sx={{ color: 'tomato' }}>
+                                    Invalid email
+                                </FormHelperText>}
+                            placeholder='Enter your email*' color='error'
+                            fullWidth variant='filled' />
+                    </div>
+
+                    {/* Password*/}
+                    <div className='row '>
+                        <label className='col-md-3 col-4 tw-tracking-wide lg:tw-text-lg tw-font-semibold' htmlFor="title">Password</label>
+
+                        <TextField
+                            className='col'
+                            defaultValue={admin ? admin.password : ''}
+                            required
+                            {...register('password', { required: true, minLength: 6 })}
+                            type={passwordShow ? 'text' : 'password'}
+                            label='Enter Password'
+
+                            helperText={errors.password &&
+                                <FormHelperText sx={{ color: 'tomato' }} >
+                                    Too short password
+                                </FormHelperText>}
+
+                            placeholder='Minimum 6 characters required' color='error'
+                            fullWidth variant='filled' />
+
+                        {/* Show Password */}
+                        <FormControlLabel className='col-8 mt-2 col-md-9 ms-auto'
+                            control={
+                                <Checkbox size='small'
+                                    onChange={() => setPassWordShow(!passwordShow)}
+                                    color="error" />
+                            }
+                            label="Show Password" />
                     </div>
 
                     {/* Save btn */}
@@ -60,8 +142,8 @@ const Settings = () => {
                         </Tooltip>
                     </div>
                 </form>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 };
 

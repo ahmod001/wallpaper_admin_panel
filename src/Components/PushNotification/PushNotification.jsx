@@ -24,10 +24,10 @@ const PushNotification = () => {
 
     return (
         <section className='container container tw-mt-4 tw-h-screen'>
-            <div className='container navyBlue p-4 tw-h-96 tw-rounded-md '>
+            <div className='container navyBlue p-4 tw-flex tw-align-middle tw-h-96 tw-rounded-md '>
 
                 <form onSubmit={handleSubmit(onSubmit)}
-                    action="push_notification" className=' tw-space-y-5 sm:tw-w-11/12' method="post">
+                    action="push_notification" className=' my-auto tw-space-y-5 sm:tw-w-11/12' method="post">
 
                     {/* Title */}
                     <div className='row'>
