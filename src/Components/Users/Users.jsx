@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import Pagination from '../Pagination/Pagination';
 import { setLocalStorage } from '../../assets/appStorage/appStorage';
-import { Button, Tooltip } from '@mui/material';
+import { Button, Fade, Tooltip } from '@mui/material';
 import { AdminContext } from '../../App';
 
 // _Fake_Data_
@@ -52,7 +52,7 @@ const Users = () => {
             <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
 
                 {/*Table Header */}
-                <ComponentHeader placeholder='Search By Name...'  />
+                <ComponentHeader placeholder='Search By Name...' />
 
                 {/* Table */}
                 <div className='tw-bg-gray-800/50 tw-rounded-md'>
@@ -70,51 +70,53 @@ const Users = () => {
                             <tbody>
                                 {usersData.map((user, index) => {
                                     return (
-                                        <tr key={index} className='hover:tw-bg-gray-700/10 first-letter'>
+                                        <Fade in={true} onDurationChange={1500}>
+                                            <tr key={index} className='hover:tw-bg-gray-700/10 first-letter'>
 
-                                            {/* Id */}
-                                            <td className='tw-px-4 tw-py-2'>{user.id}</td>
+                                                {/* Id */}
+                                                <td className='tw-px-4 tw-py-2'>{user.id}</td>
 
-                                            {/* Name */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {user.name}
-                                            </td>
+                                                {/* Name */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {user.name}
+                                                </td>
 
-                                            {/* Email */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {user.email}
-                                            </td>
+                                                {/* Email */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {user.email}
+                                                </td>
 
-                                            {/* phone */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {user.phone}
-                                            </td>
+                                                {/* phone */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {user.phone}
+                                                </td>
 
-                                            {/* Status */}
-                                            <td className='tw-px-4 tw-py-2 tw-font-semibold'>
-                                                {user.status ? <h3 className='tw-text-green-500 '>
-                                                    Active</h3>
+                                                {/* Status */}
+                                                <td className='tw-px-4 tw-py-2 tw-font-semibold'>
+                                                    {user.status ? <h3 className='tw-text-green-500 '>
+                                                        Active</h3>
 
-                                                    : <h3 className='tw-text-red-500 '>Inactive</h3>}
-                                            </td>
+                                                        : <h3 className='tw-text-red-500 '>Inactive</h3>}
+                                                </td>
 
-                                            {/* Action Buttons here */}
-                                            <td className='tw-px-4 tw-py-2'>
+                                                {/* Action Buttons here */}
+                                                <td className='tw-px-4 tw-py-2'>
 
 
-                                                {
-                                                    // block-User Button
-                                                    user.status ?
-                                                        <Tooltip arrow name="Block User" placement="top">
-                                                            <Button size='small' onClick={() => blockBtnHandler(index)} variant='text' color='error'>Block</Button>
-                                                        </Tooltip>
+                                                    {
+                                                        // block-User Button
+                                                        user.status ?
+                                                            <Tooltip arrow name="Block User" placement="top">
+                                                                <Button size='small' onClick={() => blockBtnHandler(index)} variant='text' color='error'>Block</Button>
+                                                            </Tooltip>
 
-                                                        // Unblock User
-                                                        : <Tooltip arrow name="Unblock User" placement="top">
-                                                            <Button size='small' onClick={() => unBlockBtnHandler(index)} variant='text' color='success'>Unblock</Button>
-                                                        </Tooltip>}
-                                            </td>
-                                        </tr>
+                                                            // Unblock User
+                                                            : <Tooltip arrow name="Unblock User" placement="top">
+                                                                <Button size='small' onClick={() => unBlockBtnHandler(index)} variant='text' color='success'>Unblock</Button>
+                                                            </Tooltip>}
+                                                </td>
+                                            </tr>
+                                        </Fade>
                                     )
                                 })}
                             </tbody>

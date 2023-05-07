@@ -3,7 +3,7 @@ import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import { fakeTable } from '../WallpaperStatistics/WallpaperStatistics';
 import Pagination from '../Pagination/Pagination';
 import { setLocalStorage } from '../../assets/appStorage/appStorage';
-import { IconButton, Tooltip } from '@mui/material';
+import { Fade, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { AdminContext } from '../../App';
 
@@ -69,9 +69,7 @@ const Reports = () => {
 
 
     // Delete Report btn Handler
-    const [isDeleteBtnPressed, setIsDeleteBtnPressed] = useState(false);
     const deleteBtnHandler = (id) => {
-        setIsDeleteBtnPressed(!isDeleteBtnPressed)
         setReports(reports.filter(report => report.id !== id))
     }
 
@@ -84,7 +82,7 @@ const Reports = () => {
 
                 {/* Table */}
                 <div className='tw-bg-gray-800/50 tw-rounded-md'>
-                    <div className='sm:tw-w-full tw-w-96 tw-mx-auto tw-overflow-x-scroll navyBlue md:tw-overflow-x-auto pb-3 tw-whitespace-nowrap md:tw-whitespace-normal'>
+                    <div className='sm:tw-w-full tw-w-96 tw-mx-auto navyBlue tw-overflow-x-auto pb-3 tw-whitespace-nowrap md:tw-whitespace-normal'>
 
                         <table className='tw-w-full tw-table-auto cursor-pointer'>
                             <thead>
@@ -100,6 +98,7 @@ const Reports = () => {
                                     const { id, name, email, title, massage } = report;
 
                                     return (
+                                        <Fade in={true} onDurationChange={1500}>
                                         <tr key={id} className='hover:tw-bg-gray-700/10'>
 
                                             {/* Id */}
@@ -121,7 +120,7 @@ const Reports = () => {
                                             </td>
 
                                             {/* MASSAGE' */}
-                                            <td className='tw-px-4 tw-py-2 tw-overflow-y-auto'>
+                                            <td className='tw-px-4 tw-py-2'>
                                                 {massage.slice(0, 300)}
                                             </td>
 
@@ -140,12 +139,14 @@ const Reports = () => {
                                                 </Tooltip>
                                             </td>
                                         </tr>
+                                        </Fade>
                                     )
                                 })}
                             </tbody>
                         </table>
                     </div>
                 </div>
+
                 {/* Pagination */}
                 <Pagination />
             </div>

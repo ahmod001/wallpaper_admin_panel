@@ -2,7 +2,7 @@ import { Add, Search } from '@mui/icons-material';
 import { Button, FormControl, Input, InputAdornment, InputLabel, Tooltip } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { SearchBar, SearchIconWrapper, StyledInputBase } from "./MuiCustomSearchBar/MuiCustomSearchBar";
 // This sub_component will be use on the top of all content component//
 const ComponentHeader = ({ button, btnNavigateTo, buttonName, placeholder }) => {
     const navigate = useNavigate()
@@ -14,21 +14,23 @@ const ComponentHeader = ({ button, btnNavigateTo, buttonName, placeholder }) => 
     }
 
     return (
-        <header className='tw-flex tw-justify-between sm:tw-px-5 tw-px-4 tw-align-middle tw-h-20'>
+        <header className='tw-flex tw-justify-between sm:tw-px-0.5 tw-px-1 tw-align-middle tw-h-20'>
             {/* Search Bar */}
-            <FormControl onChange={handleSearch} color='error' className='my-auto tw-w-44 sm:tw-w-64' variant="standard">
-                <Input
-                placeholder={`${placeholder}`}
-                    type='text'
-                    endAdornment={
-                        <InputAdornment position="start">
-                            <Search />
-                        </InputAdornment>
-                    } />
-            </FormControl>
+            <SearchBar className='my-auto'>
+                <SearchIconWrapper>
+                    <Search />
+                </SearchIconWrapper>
+                <StyledInputBase
+                    type='search'
+                    placeholder={`${placeholder}`}
+                    onChange={handleSearch}
+                    inputProps={{ 'aria-label': 'search' }}
+                />
+            </SearchBar>
+
 
             {/* Add new element button */}
-            {button && <Tooltip  placement="top" title={`Add new ${buttonName.toLowerCase()}`}>
+            {button && <Tooltip placement="top" title={`Add new ${buttonName.toLowerCase()}`}>
                 <Button onClick={() => navigate(`${btnNavigateTo}`)}
                     color='success' size='small' className='text-light my-auto' variant="contained" startIcon={<Add fontSize='inherit' />}>
                     {`Add ${buttonName}`}

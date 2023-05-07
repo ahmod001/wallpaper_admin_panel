@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import WallpaperStatistics from "../WallpaperStatistics/WallpaperStatistics";
 import { useContext } from "react";
 import { AdminContext } from "../../App";
+import { Grow } from "@mui/material";
 
 
 const Dashboard = () => {
@@ -35,28 +36,32 @@ const Dashboard = () => {
 
             {/* Dashboard Cards */}
             <div className='mt-4 tw-grid md:tw-grid-cols-3 tw-grid-cols-2 sm:tw-gap-5 tw-gap-4'>
-                {dashboardCards.map((card, index) => {
+                {dashboardCards.map(card => {
                     return (
-                        <div onClick={() => navigate(card.redirectLink)} 
-                            className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold' key={card.id}>
-                            <div className='m-auto tw-space-y-2'>
-                                <h3 className={` ${card.color} tw-text-3xl lg:tw-text-4xl tw-font-semibold tw-tracking-wide`}>{formatNumber(card.length)}
-                                </h3>
-                                <p className='md:tw-text-lg'>{card.name}</p>
+                        <Grow in={true} onDurationChange={1500}>
+                            <div onClick={() => navigate(card.redirectLink)}
+                                className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold' key={card.id}>
+                                <div className='m-auto tw-space-y-2'>
+                                    <h3 className={` ${card.color} tw-text-3xl lg:tw-text-4xl tw-font-semibold tw-tracking-wide`}>{formatNumber(card.length)}
+                                    </h3>
+                                    <p className='md:tw-text-lg'>{card.name}</p>
+                                </div>
                             </div>
-                        </div>)
+                        </Grow>)
                 })}
 
                 {/* Settings */}
-                <div onClick={() => navigate('/settings')}
-                    className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold'>
-                    <div className='m-auto tw-space-y-2'>
-                        <h3 className='tw-text-3xl md:tw-text-4xl tw-font-semibold tw-text-gray-300'>
-                            <i className="bi bi-gear" />
-                        </h3>
-                        <p className='md:tw-text-lg'>Settings</p>
+                <Grow in={true} onDurationChange={1500}>
+                    <div onClick={() => navigate('/settings')}
+                        className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold'>
+                        <div className='m-auto tw-space-y-2'>
+                            <h3 className='tw-text-3xl md:tw-text-4xl tw-font-semibold tw-text-gray-300'>
+                                <i className="bi bi-gear" />
+                            </h3>
+                            <p className='md:tw-text-lg'>Settings</p>
+                        </div>
                     </div>
-                </div>
+                </Grow>
             </div>
 
             {/* Top wallpaper statics */}

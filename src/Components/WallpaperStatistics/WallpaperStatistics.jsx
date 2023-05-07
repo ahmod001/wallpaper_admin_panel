@@ -1,5 +1,6 @@
 import React from 'react';
 import Pagination from '../Pagination/Pagination';
+import { Fade } from '@mui/material';
 
 export const fakeTable = [
     { id: 0, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
@@ -35,6 +36,7 @@ const WallpaperStatistics = () => {
                     <tbody>
                         {fakeTable.map((table, index) => {
                             return (
+                                <Fade in={true} onDurationChange={1500}>
                                 <tr key={index} className='hover:tw-bg-gray-700/10'>
 
                                     {/* Id */}
@@ -56,6 +58,7 @@ const WallpaperStatistics = () => {
                                     <td className='tw-px-4 tw-py-2'>{table.downloads}</td>
 
                                 </tr>
+                                </Fade>
                             );
                         })}
                     </tbody>

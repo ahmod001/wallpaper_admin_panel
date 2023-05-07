@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { setLocalStorage } from '../../assets/appStorage/appStorage';
-import { Button, TextField, Tooltip } from '@mui/material';
+import { Button, Fade, TextField, Tooltip } from '@mui/material';
 import { Send } from "@mui/icons-material";
 import { useForm } from 'react-hook-form';
 import { AdminContext } from '../../App';
@@ -25,7 +25,7 @@ const PushNotification = () => {
     return (
         <section className='container container tw-mt-4 tw-h-screen'>
             <div className='container navyBlue p-4 tw-flex tw-align-middle tw-h-96 tw-rounded-md '>
-
+            <Fade in={true} onDurationChange={3000}>
                 <form onSubmit={handleSubmit(onSubmit)}
                     action="push_notification" className=' my-auto tw-space-y-5 sm:tw-w-11/12' method="post">
 
@@ -69,6 +69,7 @@ const PushNotification = () => {
                         </Tooltip>
                     </div>
                 </form>
+                </Fade>
             </div>
         </section>
     );

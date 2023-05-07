@@ -26,7 +26,14 @@ const CategoryEdit = () => {
     }
 
     return (
-        <FormEditor edit={true} targetName={'Category'} editingComponent={'Categories'} titleLabel={'Name'} imgLabel={'Category Image'} goBackLocation={'/categories'} actionHandler={editCategoryHandler} editingComponentObject={editingCategory} />
+        <FormEditor
+            edit={true}
+            targetName={'Category'}
+            editingComponent={'Categories'}
+            titleLabel={'Name'} imgLabel={'Category Image'}
+            goBackLocation={'/categories'}
+            actionHandler={editCategoryHandler}
+            editingComponentObject={editingCategory} />
     );
 };
 

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import { setLocalStorage } from "../../assets/appStorage/appStorage";
 import Pagination from '../Pagination/Pagination';
-import { IconButton, Tooltip } from '@mui/material';
+import { Fade, IconButton, Tooltip } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { AdminContext } from '../../App';
@@ -60,9 +60,7 @@ const Categories = () => {
     }, []);
 
     // Delete Category Btn handler
-    const [isDeleteBtnPressed, setIsDeleteBtnPressed] = useState(false);
     const deleteBtnHandler = (id) => {
-        setIsDeleteBtnPressed(!isDeleteBtnPressed)
         setCategories(categories.filter(category => category.id !== id))
     }
 
@@ -89,51 +87,55 @@ const Categories = () => {
                             <tbody>
                                 {categories.map((category) => {
                                     return (
-                                        <tr key={category.id} className='hover:tw-bg-gray-700/10 first-letter'>
+                                        <Fade in={true} onDurationChange={1500}>
+                                            <tr key={category.id} className='hover:tw-bg-gray-700/10 first-letter'>
 
-                                            {/* Id */}
-                                            <td className='tw-px-4 tw-py-2'>{category.id}</td>
+                                                {/* Id */}
+                                                <td className='tw-px-4 tw-py-2'>{category.id}</td>
 
-                                            {/* Image */}
-                                            <td className='tw-px-2 tw-py-2'>
-                                                <img className='tw-h-20 tw-rounded-sm' src={category.img} alt={category.name} />
-                                            </td>
+                                                {/* Image */}
+                                                <td className='tw-px-2 tw-py-2'>
+                                                    <img className='tw-h-20 tw-rounded-sm' src={category.img}
+                                                        loading='lazy'
+                                                        alt={category.name} />
+                                                </td>
 
-                                            {/* Category-Name */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {category.name}</td>
+                                                {/* Category-Name */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {category.name}</td>
 
-                                            {/* DESCRIPTION' [limit: 100 character] */}
-                                            <td className='tw-px-4 text-justify tw-py-2'>
-                                                {category.description}
-                                            </td>
+                                                {/* DESCRIPTION' [limit: 100 character] */}
+                                                <td className='tw-px-4 text-justify tw-py-2'>
+                                                    {category.description}
+                                                </td>
 
-                                            {/* Action Buttons goes here */}
-                                            <td className='tw-px-2'>
-                                                <div className='tw-grid tw-grid-cols-2 tw-gap-x-1'>
+                                                {/* Action Buttons goes here */}
+                                                <td className='tw-px-2'>
+                                                    <div className='tw-grid tw-grid-cols-2 tw-gap-x-1'>
 
-                                                    {/* Edit */}
-                                                    <Tooltip arrow placement='top' title='Edit'>
-                                                        <IconButton
-                                                            onClick={() => {
-                                                                navigate(`/categories/edit/${category.id}`)
-                                                            }}
+                                                        {/* Edit */}
+                                                        <Tooltip arrow placement='top' title='Edit'>
+                                                            <IconButton
+                                                                onClick={() => {
+                                                                    navigate(`/categories/edit/${category.id}`)
+                                                                }}
 
-                                                            className='col' aria-label="edit">
-                                                            <Edit fontSize='inherit' />
-                                                        </IconButton>
-                                                    </Tooltip>
+                                                                className='col' aria-label="edit">
+                                                                <Edit fontSize='inherit' />
+                                                            </IconButton>
+                                                        </Tooltip>
 
-                                                    {/*Delete*/}
-                                                    <Tooltip arrow placement='top' title='Delete'>
-                                                        <IconButton
-                                                            onClick={() => deleteBtnHandler(category.id)} color='error' className='col' aria-label="delete">
-                                                            <Delete fontSize='inherit' />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                        {/*Delete*/}
+                                                        <Tooltip arrow placement='top' title='Delete'>
+                                                            <IconButton
+                                                                onClick={() => deleteBtnHandler(category.id)} color='error' className='col' aria-label="delete">
+                                                                <Delete fontSize='inherit' />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </Fade>
                                     )
                                 })}
                             </tbody>

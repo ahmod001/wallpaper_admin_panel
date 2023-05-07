@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Button, FormControl, Input, InputLabel, MenuItem, Select, TextField, Tooltip } from '@mui/material';
+import { Button, Fade, FormControl, Input, InputLabel, MenuItem, Select, TextField, Tooltip } from '@mui/material';
 import { ArrowBack, List } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -23,13 +23,13 @@ const FormEditor = (properties) => {
 
     return (
         <section className='container tw-min-h-screen container tw-mt-4 mb-5'>
-            <div className='container navyBlue px-4 py-3 pb-4 tw-space-y-10 tw-rounded-md '>
+            <Fade in={true} onDurationChange={3000}>
+            <div className='container navyBlue px-4 py-3 pb-4 tw-space-y-8 tw-rounded-md '>
 
                 {/* GO Back Button */}
                 <Button variant="text" onClick={() => navigate(goBackLocation)} color='error' size='large' startIcon={<ArrowBack fontSize='inherit' />}>
                     Back
                 </Button>
-
 
                 {/* Form */}
                 <form onSubmit={handleSubmit(onSubmit)}
@@ -89,23 +89,25 @@ const FormEditor = (properties) => {
 
                     {/* Image */}
                     <div className='row'>
-                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide  tw-font-semibold' htmlFor="title">{imgLabel}</label>
+                        <label className='col-md-3 col-4 lg:tw-text-lg tw-tracking-wide tw-font-semibold' htmlFor="title">{imgLabel}</label>
                         <div className='col tw-px-0 tw-space-y-4'>
 
                             {/*Select Image File */}
-                            {targetName.toLowerCase() !== 'ad' ? <Tooltip title='Select Image File' placement='top-start'>
-                                <TextField hiddenLabel
-                                    inputProps={{
-                                        accept: "image/*",
-                                        onChange: (e) => {
-                                            return (setCurrentImageSrc(URL.createObjectURL(e.target.files[0])))
-                                        }
-                                    }}
+                            {targetName.toLowerCase() !== 'ads' ?
+                                <Tooltip title='Select Image File'
+                                    placement='top-start'>
+                                    <TextField hiddenLabel
+                                        inputProps={{
+                                            accept: "image/*",
+                                            onChange: (e) => {
+                                                return (setCurrentImageSrc(URL.createObjectURL(e.target.files[0])))
+                                            }
+                                        }}
 
-                                    variant='filled' size='normal'
-                                    {...register('img', { required: edit ? false : true })} required={edit ? false : true}
-                                    color='action' fullWidth type='file' />
-                            </Tooltip>
+                                        variant='filled' size='normal'
+                                        {...register('img', { required: edit ? false : true })} required={edit ? false : true}
+                                        color='action' fullWidth type='file' />
+                                </Tooltip>
 
                                 // Enter Image URL //
                                 : <TextField
@@ -113,7 +115,7 @@ const FormEditor = (properties) => {
                                     placeholder='https://banner.jpg'
                                     variant='filled'
                                     defaultValue={currentImageSrc}
-                                    {...register('img_url', { required: true })} required
+                                    {...register('banner', { required: true })} required
                                     color='error' fullWidth type='url'
                                     onBlur={(e) => {
                                         setCurrentImageSrc(e.target.value)
@@ -122,7 +124,9 @@ const FormEditor = (properties) => {
 
                             {/*Selected Image preview will show here*/}
                             <img src={currentImageSrc}
-                                className={`${!currentImageSrc && 'tw-hidden'} tw-rounded-md tw-pointer-events-none tw-object-cover tw-h-44`} alt={targetName + ' ' + imgLabel} />
+                                className={`${!currentImageSrc && 'tw-hidden'} tw-rounded-sm tw-pointer-events-none tw-object-cover tw-h-44`}
+                                loading="lazy"
+                                alt={targetName + ' ' + imgLabel} />
                         </div>
                     </div>
 
@@ -175,13 +179,14 @@ const FormEditor = (properties) => {
                             :
                             <Tooltip placement='top' title={`Save ${targetName}`}>
                                 <Button key={1} type='submit' variant="contained" color='error' size='small' value={'edit'}>
-                                    Edit
+                                    Save
                                 </Button>
                             </Tooltip>
                         }
                     </div>
                 </form>
             </div>
+            </Fade>
         </section>
     );
 };

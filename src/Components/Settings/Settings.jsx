@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel, FormHelperText, TextField, Tooltip } from '@mui/material';
+import { Button, Checkbox, Fade, FormControlLabel, FormHelperText, TextField, Tooltip } from '@mui/material';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { setLocalStorage } from '../../assets/appStorage/appStorage';
@@ -39,10 +39,13 @@ const Settings = () => {
     }
     return (
         <section className='container tw-min-h-screen container tw-mt-4 mb-5'>
+         <Fade in={true} onDurationChange={1500}>
             <div className='container navyBlue px-4 py-3 pb-4 tw-space-y-12 tw-rounded-md '>
 
                 {/*Profile Picture Preview will show here*/}
-                <img src={profilePicture}
+                <img
+                    loading='lazy'
+                    src={profilePicture}
                     className={`tw-rounded-md tw-pointer-events-none tw-object-center tw-object-cover tw-ring-4 tw-ring-gray-700 tw-shadow-gray-500 tw-shadow-md lg:tw-w-44 lg:tw-h-44 tw-w-36 tw-h-36`} alt='Profile-picture' />
 
                 <form onSubmit={handleSubmit(onSubmit)}
@@ -143,6 +146,7 @@ const Settings = () => {
                     </div>
                 </form>
             </div >
+            </Fade>
         </section >
     );
 };

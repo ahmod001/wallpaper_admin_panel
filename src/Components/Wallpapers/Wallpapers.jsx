@@ -128,12 +128,10 @@ const Wallpapers = () => {
     }, []);
 
     // Delete Wallpaper Btn handler
-    const [isDeleteBtnPressed, setIsDeleteBtnPressed] = useState(false);
     const deleteBtnHandler = (id) => {
-        setIsDeleteBtnPressed(!isDeleteBtnPressed)
         setWallpapers(wallpapers.filter(wallpaper => wallpaper.id !== id))
     }
-
+    
     // status Wallpaper Btn handler 
     const statusBtnHandler = (id) => {
         const updatedWallpapers = wallpapers.map(wallpaper => {
