@@ -13,17 +13,17 @@ const MainLayout = () => {
     const CollapseHandler = () => {
         setCollapseSideBar(!collapseSideBar)
     }
-    
+
     return (
-        <Fade in={true} onDurationChange={1500}>
-        <section className='tw-flex md:tw-space-x-1'>
-            <Sidebar collapseSideBar={collapseSideBar} CollapseHandler={CollapseHandler} />
-            <div className='2xl:tw-w-11/12 lg:tw-w-10/12 tw-w-full' >
-                <Header CollapseHandler={CollapseHandler} />
-                <Outlet />
-                <Footer />
-            </div>
-        </section>
+        <Fade in={true} onDurationChange={() => 1500}>
+            <section className='tw-flex md:tw-space-x-1'>
+                <Sidebar collapseSideBar={collapseSideBar} CollapseHandler={CollapseHandler} />
+                <div className='2xl:tw-w-11/12 lg:tw-w-10/12 tw-w-full' >
+                    <Header CollapseHandler={CollapseHandler} />
+                    <Outlet />
+                    <Footer />
+                </div>
+            </section>
         </Fade>
     );
 };

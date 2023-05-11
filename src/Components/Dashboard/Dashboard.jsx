@@ -38,9 +38,13 @@ const Dashboard = () => {
             <div className='mt-4 tw-grid md:tw-grid-cols-3 tw-grid-cols-2 sm:tw-gap-5 tw-gap-4'>
                 {dashboardCards.map(card => {
                     return (
-                        <Grow in={true} onDurationChange={1500}>
+                        <Grow
+                            key={card.id}
+                            in={true}
+                            style={{ transformOrigin: 'center' }}
+                            onDurationChange={() => 1500}>
                             <div onClick={() => navigate(card.redirectLink)}
-                                className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold' key={card.id}>
+                                className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold' >
                                 <div className='m-auto tw-space-y-2'>
                                     <h3 className={` ${card.color} tw-text-3xl lg:tw-text-4xl tw-font-semibold tw-tracking-wide`}>{formatNumber(card.length)}
                                     </h3>
@@ -51,7 +55,7 @@ const Dashboard = () => {
                 })}
 
                 {/* Settings */}
-                <Grow in={true} onDurationChange={1500}>
+                <Grow in={true} onDurationChange={() => 1500}>
                     <div onClick={() => navigate('/settings')}
                         className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold'>
                         <div className='m-auto tw-space-y-2'>

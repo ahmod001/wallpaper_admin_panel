@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import { setLocalStorage } from "../../assets/appStorage/appStorage";
-import Pagination from '../Pagination/Pagination';
 import { Fade, IconButton, Tooltip } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { AdminContext } from '../../App';
+import PopUpDialog from "../PopUpDialog/PopUpDialog";
+import SnackBar from '../SnackBar/SnackBar';
 
 const fakeCategories = [
     {
@@ -43,9 +44,10 @@ const Categories = () => {
     // Using Context API
     const { CurrentPage } = useContext(AdminContext)
     const [currentPage, setCurrentPage] = CurrentPage;
+
     setTimeout(() => {
         setCurrentPage('Categories')
-    }, 1);
+    }, 1)
 
     const navigate = useNavigate()
     setLocalStorage('componentId', 2)
@@ -59,17 +61,48 @@ const Categories = () => {
         setCategories(fakeCategories)
     }, []);
 
-    // Delete Category Btn handler
+    // Delete Category //
+    const [isDeleteBtnClicked, setIsDeleteBtnClicked] = useState(false);
+    const [targetedCategoryId, setTargetedCategoryId] = useState(null);
+    const [isDeletedSuccessfully, setIsDeletedSuccessfully] = useState(false);
+
+    // Delete Btn Handler
     const deleteBtnHandler = (id) => {
-        setCategories(categories.filter(category => category.id !== id))
+        setTargetedCategoryId(id)
+        setIsDeleteBtnClicked(!isDeleteBtnClicked)
+    }
+
+    // Confirm Delete Button Handler
+    const confirmDelete = () => {
+        setIsDeleteBtnClicked(!isDeleteBtnClicked)
+        setIsDeletedSuccessfully(!isDeletedSuccessfully)
+        setCategories(categories.filter(category => category.id !== targetedCategoryId))
     }
 
     return (
-        <section className=' container tw-min-h-screen tw-mt-4 tw-mb-5'>
+        <section className='container tw-min-h-screen tw-mt-4 tw-mb-5'>
+
+            {/*  Dialog for delete confirmation */}
+            <PopUpDialog
+                isActionBtnClicked={isDeleteBtnClicked}
+                setIsActionBtnClicked={setIsDeleteBtnClicked}
+                confirmAction={confirmDelete} />
+
+            {/* Successfully Deleted Pop_up */}
+            <SnackBar
+                message={'Deleted Successfully'}
+                isActionSuccessful={isDeletedSuccessfully}
+                setIsActionSuccessful={setIsDeletedSuccessfully} />
+
+            {/* Main Content */}
             <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
 
                 {/*Table Header */}
-                <ComponentHeader placeholder='Search By Title...' button={true} btnNavigateTo='/categories/add' buttonName='Category' />
+                <ComponentHeader
+                    placeholder='Search By Title...'
+                    button={true}
+                    btnNavigateTo='/categories/add'
+                    buttonName='Category' />
 
                 {/* Table */}
                 <div className='tw-bg-gray-800/50 tw-rounded-md'>
@@ -85,19 +118,26 @@ const Categories = () => {
                             </thead>
 
                             <tbody>
-                                {categories.map((category) => {
+                                {categories.map(category => {
                                     return (
-                                        <Fade in={true} onDurationChange={1500}>
-                                            <tr key={category.id} className='hover:tw-bg-gray-700/10 first-letter'>
+                                        <Fade key={category.id}
+                                            in={true}
+                                            onDurationChange={() => 1500}>
+                                            <tr className='hover:tw-bg-gray-700/10 first-letter'>
 
                                                 {/* Id */}
                                                 <td className='tw-px-4 tw-py-2'>{category.id}</td>
 
                                                 {/* Image */}
                                                 <td className='tw-px-2 tw-py-2'>
-                                                    <img className='tw-h-20 tw-rounded-sm' src={category.img}
-                                                        loading='lazy'
-                                                        alt={category.name} />
+                                                    <Fade
+
+                                                        in={true}
+                                                        onDurationChange={() => 1000}>
+                                                        <img className='tw-h-20 tw-rounded-sm' src={category.img}
+                                                            loading='lazy'
+                                                            alt={category.name} />
+                                                    </Fade>
                                                 </td>
 
                                                 {/* Category-Name */}

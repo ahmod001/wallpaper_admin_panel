@@ -21,10 +21,17 @@ const EditAdMob = () => {
         setEditingAds(ads.find(ads => ads.id === Number.parseInt(adsId)))
     }, [])
 
+     // These states will control pop_Up snackBar
+     const [isEditFormSubmitted, setIsEditFormSubmitted] = useState(false);
+     const [isSubmissionSuccessful, setIsSubmissionSuccessful] = useState(false);
+
     // Edit Button Handler
     const editingAdsHandler = (data) => {
-console.log(data);
+        console.log(data)
+        setIsEditFormSubmitted(!isEditFormSubmitted);
+        setIsSubmissionSuccessful(true)
     }
+
 
     return (
         <FormEditor
@@ -35,7 +42,10 @@ console.log(data);
             imgLabel={'Banner'}
             goBackLocation={'/ads'}
             actionHandler={editingAdsHandler}
-            editingComponentObject={editingAds} />
+            editingComponentObject={editingAds} 
+            isEditFormSubmitted={isEditFormSubmitted}
+            setIsEditFormSubmitted={setIsEditFormSubmitted}
+            isSubmissionSuccessful={isSubmissionSuccessful}/>
     );
 };
 

@@ -11,7 +11,7 @@ const Wallpaper = ({ wallpaper, deleteBtnHandler, statusBtnHandler }) => {
     const { id, img, title, category, ratings, rated_by_users, downloaded, active } = wallpaper;
 
     return (
-        <Fade in={true} onDurationChange={1500}>
+        <Fade in={true} onDurationChange={() => 1500}>
             <Card className='col sm:tw-w-full tw-w-9/12'
                 sx={{
                     marginX: 'auto',
@@ -74,14 +74,10 @@ const Wallpaper = ({ wallpaper, deleteBtnHandler, statusBtnHandler }) => {
                     </Tooltip>
 
                     {/* Delete_btn */}
-                    <Tooltip title='Delete Permanently' placement='top-end'>
-                        <span>
-                            <Button onClick={() => deleteBtnHandler(id)}
-                                disabled={!active} size='small' color='error' variant="outlined" endIcon={<Delete fontSize='inherit' />}>
-                                Delete
-                            </Button>
-                        </span>
-                    </Tooltip>
+                    <Button onClick={() => deleteBtnHandler(id)}
+                        disabled={!active} size='small' color='error' variant="outlined" endIcon={<Delete fontSize='inherit' />}>
+                        Delete
+                    </Button>
                 </CardActions>
             </Card>
         </Fade>

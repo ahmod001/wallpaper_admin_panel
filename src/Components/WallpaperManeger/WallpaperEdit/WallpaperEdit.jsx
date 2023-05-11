@@ -18,16 +18,34 @@ const WallpaperEdit = () => {
 
     useMemo(() => {
         setEditingWallpaper(wallpapers.find(wallpaper => wallpaper.id === Number.parseInt(wallpaperId)))
+
     }, [])
 
+    // These states will control pop_Up snackBar
+    const [isEditFormSubmitted, setIsEditFormSubmitted] = useState(false);
+    const [isSubmissionSuccessful, setIsSubmissionSuccessful] = useState(false);
 
     // Edit Wallpaper Handler Handler
     const editWallpaperHandler = (data) => {
         console.log(data);
+        setIsEditFormSubmitted(!isEditFormSubmitted);
+        setIsSubmissionSuccessful(true)
+
     }
 
     return (
-        <FormEditor edit={true} targetName={'Wallpaper'} editingComponent={'Wallpapers'} titleLabel={'Title'} imgLabel={'Wallpaper Image'} goBackLocation={'/wallpapers'} actionHandler={editWallpaperHandler} editingComponentObject={editingWallpaper} />
+        <FormEditor 
+        edit={true} 
+        targetName={'Wallpaper'} 
+        editingComponent={'Wallpapers'} 
+        titleLabel={'Title'} 
+        imgLabel={'Wallpaper Image'} 
+        goBackLocation={'/wallpapers'} 
+        actionHandler={editWallpaperHandler} 
+        editingComponentObject={editingWallpaper}     
+        isEditFormSubmitted={isEditFormSubmitted}
+        setIsEditFormSubmitted={setIsEditFormSubmitted}
+        isSubmissionSuccessful={isSubmissionSuccessful} />
     );
 };
 

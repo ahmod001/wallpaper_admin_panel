@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
-import { fakeTable } from '../WallpaperStatistics/WallpaperStatistics';
 import Pagination from '../Pagination/Pagination';
-import { setLocalStorage } from '../../assets/appStorage/appStorage';
-import { Fade, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
+import { getLocalStorage, setLocalStorage } from '../../assets/appStorage/appStorage';
+import { Fade, IconButton, Tooltip } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { AdminContext } from '../../App';
+import PopUpDialog from '../PopUpDialog/PopUpDialog';
+import SnackBar from '../SnackBar/SnackBar';
 
 const fakeReports = [
     {
@@ -52,31 +53,68 @@ const fakeReports = [
     }
 ]
 const Reports = () => {
+
     // Using Context API
     const { CurrentPage } = useContext(AdminContext)
     const [currentPage, setCurrentPage] = CurrentPage;
+    
     setTimeout(() => {
         setCurrentPage('Reports')
     }, 1);
     setLocalStorage('componentId', 4)
 
+    // All Reports goes here
+    const [reports, setReports] = useState([])
+
+    // This States for Pagination
+    const defaultPage = getLocalStorage('defaultReportPage');
+    const [currentPageNum, setCurrentPageNum] = useState(defaultPage || 1);
+    const [totalPageCount, setTotalPageCount] = useState(5);
+
+    // Pagination Handler
+    const handlePagination = (event, value) => {
+        setLocalStorage('defaultReportPage', value)
+        setCurrentPageNum(value)
+    }
+
     useEffect(() => {
         setReports(fakeReports)
     }, [])
 
-    // All Reports goes here
-    const [reports, setReports] = useState([])
+    // Delete Report //
+    const [isDeleteBtnClicked, setIsDeleteBtnClicked] = useState(false);
+    const [targetedReportId, setTargetedReportId] = useState(null);
+    const [isDeletedSuccessfully, setIsDeletedSuccessfully] = useState(false);
 
-
-    // Delete Report btn Handler
+    // Delete Btn Handler
     const deleteBtnHandler = (id) => {
-        setReports(reports.filter(report => report.id !== id))
+        setTargetedReportId(id)
+        setIsDeleteBtnClicked(!isDeleteBtnClicked)
     }
 
+    // Confirm Delete Button Handler
+    const confirmDelete = () => {
+        setIsDeleteBtnClicked(!isDeleteBtnClicked)
+        setIsDeletedSuccessfully(!isDeletedSuccessfully)
+        setReports(reports.filter(report => report.id !== targetedReportId))
+    }
     return (
         <section className='container tw-mt-4 tw-mb-7'>
-            <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
 
+            {/*  Dialog for delete confirmation */}
+            <PopUpDialog
+                isActionBtnClicked={isDeleteBtnClicked}
+                setIsActionBtnClicked={setIsDeleteBtnClicked}
+                confirmAction={confirmDelete} />
+
+            {/* Successfully Deleted Pop_up */}
+            <SnackBar
+                message={'Deleted Successfully'}
+                isActionSuccessful={isDeletedSuccessfully}
+                setIsActionSuccessful={setIsDeletedSuccessfully} />
+
+            {/* Main Content */}
+            <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
                 {/*Table Header */}
                 <ComponentHeader placeholder='Search By Name...' button={false} />
 
@@ -98,47 +136,50 @@ const Reports = () => {
                                     const { id, name, email, title, massage } = report;
 
                                     return (
-                                        <Fade in={true} onDurationChange={1500}>
-                                        <tr key={id} className='hover:tw-bg-gray-700/10'>
+                                        <Fade
+                                            key={id}
+                                            in={true}
+                                            onDurationChange={() => 1500}>
+                                            <tr className='hover:tw-bg-gray-700/10'>
 
-                                            {/* Id */}
-                                            <td className='tw-px-4 tw-py-2'>{id}</td>
+                                                {/* Id */}
+                                                <td className='tw-px-4 tw-py-2'>{id}</td>
 
-                                            {/* Name */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {name}
-                                            </td>
+                                                {/* Name */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {name}
+                                                </td>
 
-                                            {/* Email */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {email}
-                                            </td>
+                                                {/* Email */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {email}
+                                                </td>
 
-                                            {/* Title */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {title}
-                                            </td>
+                                                {/* Title */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {title}
+                                                </td>
 
-                                            {/* MASSAGE' */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {massage.slice(0, 300)}
-                                            </td>
+                                                {/* MASSAGE' */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {massage.slice(0, 300)}
+                                                </td>
 
-                                            {/* Date */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                {Date().slice(0, 25)}
-                                            </td>
+                                                {/* Date */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    {Date().slice(0, 25)}
+                                                </td>
 
-                                            {/* delete-report Button */}
-                                            <td className='tw-px-4 tw-py-2'>
-                                                <Tooltip arrow title="Delete" placement="top">
-                                                    <IconButton onClick={() => deleteBtnHandler(report.id)} size='normal'
-                                                        color="error" aria-label="upload picture" component="label">
-                                                        <Delete fontSize="inherit" />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </td>
-                                        </tr>
+                                                {/* delete-report Button */}
+                                                <td className='tw-px-4 tw-py-2'>
+                                                    <Tooltip arrow title="Delete" placement="top">
+                                                        <IconButton onClick={() => deleteBtnHandler(report.id)} size='normal'
+                                                            color="error" aria-label="upload picture" component="label">
+                                                            <Delete fontSize="inherit" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </td>
+                                            </tr>
                                         </Fade>
                                     )
                                 })}
@@ -147,8 +188,12 @@ const Reports = () => {
                     </div>
                 </div>
 
-                {/* Pagination */}
-                <Pagination />
+                 {/* Pagination */}
+                 <Pagination
+                    count={totalPageCount}
+                    currentPageNum={currentPageNum}
+                    handlePagination={handlePagination} />
+
             </div>
         </section>
     );

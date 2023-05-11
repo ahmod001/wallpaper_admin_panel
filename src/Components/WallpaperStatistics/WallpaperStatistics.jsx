@@ -1,6 +1,7 @@
-import React from 'react';
-import Pagination from '../Pagination/Pagination';
+import React, { useMemo, useState } from 'react';
 import { Fade } from '@mui/material';
+import Pagination from '../Pagination/Pagination';
+import { getLocalStorage, setLocalStorage } from '../../assets/appStorage/appStorage';
 
 export const fakeTable = [
     { id: 0, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
@@ -8,10 +9,19 @@ export const fakeTable = [
     { id: 2, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
     { id: 3, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
     { id: 4, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
-    
+
 ]
 
 const WallpaperStatistics = () => {
+    const defaultPage = getLocalStorage('defaultStaticsPage');
+    const [currentPageNum, setCurrentPageNum] = useState(defaultPage || 1);
+    const [totalPageCount, setTotalPageCount] = useState(5);
+
+    // Pagination Handler
+    const handlePagination = (event, value) => {
+        setCurrentPageNum(value)
+        setLocalStorage('defaultStaticsPage', value)
+    }
 
     return (
         <div className='navyBlue tw-rounded-lg tw-space-y-5 mb-4 sm:tw-p-5 tw-p-4 tw-pb-3'>
@@ -36,28 +46,31 @@ const WallpaperStatistics = () => {
                     <tbody>
                         {fakeTable.map((table, index) => {
                             return (
-                                <Fade in={true} onDurationChange={1500}>
-                                <tr key={index} className='hover:tw-bg-gray-700/10'>
+                                <Fade
+                                    key={index}
+                                    in={true}
+                                    onDurationChange={() => 1500}>
+                                    <tr className='hover:tw-bg-gray-700/10'>
 
-                                    {/* Id */}
-                                    <td className='tw-px-4 tw-py-2'>{table.id}</td>
+                                        {/* Id */}
+                                        <td className='tw-px-4 tw-py-2'>{table.id}</td>
 
-                                    {/* Title */}
-                                    <td className='tw-px-4 tw-py-2'>{table.title}</td>
+                                        {/* Title */}
+                                        <td className='tw-px-4 tw-py-2'>{table.title}</td>
 
-                                    {/* Views */}
-                                    <td className='tw-px-4 tw-py-2'>{table.views}</td>
+                                        {/* Views */}
+                                        <td className='tw-px-4 tw-py-2'>{table.views}</td>
 
-                                    {/* Shares */}
-                                    <td className='tw-px-4 tw-py-2'>{table.shares}</td>
-                                    
-                                    {/* Favorites */}
-                                    <td className='tw-px-4 tw-py-2'>{table.favorites}</td>
+                                        {/* Shares */}
+                                        <td className='tw-px-4 tw-py-2'>{table.shares}</td>
 
-                                    {/* Downloads */}
-                                    <td className='tw-px-4 tw-py-2'>{table.downloads}</td>
+                                        {/* Favorites */}
+                                        <td className='tw-px-4 tw-py-2'>{table.favorites}</td>
 
-                                </tr>
+                                        {/* Downloads */}
+                                        <td className='tw-px-4 tw-py-2'>{table.downloads}</td>
+
+                                    </tr>
                                 </Fade>
                             );
                         })}
@@ -65,8 +78,10 @@ const WallpaperStatistics = () => {
                 </table>
             </div>
 
-            {/* Pagination */}
-            <Pagination />
+            <Pagination
+                count={totalPageCount}
+                currentPageNum={currentPageNum}
+                handlePagination={handlePagination} />
         </div>
     );
 };

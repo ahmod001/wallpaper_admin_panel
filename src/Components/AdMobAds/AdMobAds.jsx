@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { Fade, IconButton, Link, Tooltip } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import PopUpDialog from '../PopUpDialog/PopUpDialog';
+import SnackBar from '../SnackBar/SnackBar';
 
 const fakeAds = [
     {
@@ -50,19 +52,45 @@ const AdMobAds = () => {
     const navigate = useNavigate()
 
     // All Ad goes here
-    const [ads, setAds] = useState([])
-    setLocalStorage('ads', ads)
+    const [allAds, setAllAds] = useState([]);
+    setLocalStorage('ads', allAds)
 
     // Get Ads
-    useEffect(() => setAds(fakeAds), [])
+    useEffect(() => setAllAds(fakeAds), [])
 
-    // Delete Category Btn handler
+    // Delete Ads //
+    const [isDeleteBtnClicked, setIsDeleteBtnClicked] = useState(false);
+    const [targetedAdsId, setTargetedAdsId] = useState(null);
+    const [isDeletedSuccessfully, setIsDeletedSuccessfully] = useState(false);
+
+    // Delete Btn Handler
     const deleteBtnHandler = (id) => {
-        setAds(ads.filter(ads => ads.id !== id))
+        setTargetedAdsId(id)
+        setIsDeleteBtnClicked(!isDeleteBtnClicked)
     }
 
+    // Confirm Delete Button Handler
+    const confirmDelete = () => {
+        setIsDeleteBtnClicked(!isDeleteBtnClicked)
+        setIsDeletedSuccessfully(!isDeletedSuccessfully)
+        setAllAds(allAds.filter(Ads => Ads.id !== targetedAdsId))
+    }
     return (
         <section className=' container tw-min-h-screen tw-mt-4 tw-mb-5'>
+
+            {/*  Dialog for delete confirmation */}
+            <PopUpDialog
+                isActionBtnClicked={isDeleteBtnClicked}
+                setIsActionBtnClicked={setIsDeleteBtnClicked}
+                confirmAction={confirmDelete} />
+
+            {/* Successfully Deleted Pop_up */}
+            <SnackBar
+                message={'Deleted Successfully'}
+                isActionSuccessful={isDeletedSuccessfully}
+                setIsActionSuccessful={setIsDeletedSuccessfully} />
+
+            {/* Main Content */}
             <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
 
                 {/*Table Header */}
@@ -82,19 +110,25 @@ const AdMobAds = () => {
                             </thead>
 
                             <tbody>
-                                {ads.map(ads => {
+                                {allAds.map(ads => {
                                     const { id, title, description, img, affiliate_link } = ads;
 
                                     return (
-                                        <Fade in={true} onDurationChange={1500}>
-                                            <tr key={id} className='hover:tw-bg-gray-700/10 first-letter'>
+                                        <Fade
+                                            key={id}
+                                            in={true}
+                                            onDurationChange={() => 1500}>
+                                            <tr className='hover:tw-bg-gray-700/10 first-letter'>
 
                                                 {/* Id */}
                                                 <td className='tw-px-4 tw-py-2'>{id}</td>
 
                                                 {/* Banner */}
                                                 <td className='tw-px-2 tw-py-2'>
-                                                    <img className='tw-h-20 tw-rounded-sm' src={img} loading="lazy" alt={title} />
+                                                    <Fade
+                                                        in={true}>
+                                                        <img className='tw-h-20 tw-rounded-sm' src={img} loading="lazy" alt={title} />
+                                                    </Fade>
                                                 </td>
 
                                                 {/* Title */}

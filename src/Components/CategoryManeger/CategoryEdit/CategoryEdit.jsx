@@ -20,9 +20,15 @@ const CategoryEdit = () => {
         setEditingCategory(categories.find(category => category.id === Number.parseInt(categoryId)))
     }, [])
 
+    // These states will control pop_Up snackBar
+    const [isEditFormSubmitted, setIsEditFormSubmitted] = useState(false);
+    const [isSubmissionSuccessful, setIsSubmissionSuccessful] = useState(false);
+
     // Edit Category Btn Handler
     const editCategoryHandler = (data) => {
         console.log(data);
+        setIsEditFormSubmitted(!isEditFormSubmitted);
+        setIsSubmissionSuccessful(true)
     }
 
     return (
@@ -33,7 +39,10 @@ const CategoryEdit = () => {
             titleLabel={'Name'} imgLabel={'Category Image'}
             goBackLocation={'/categories'}
             actionHandler={editCategoryHandler}
-            editingComponentObject={editingCategory} />
+            editingComponentObject={editingCategory}
+            isEditFormSubmitted={isEditFormSubmitted}
+            setIsEditFormSubmitted={setIsEditFormSubmitted}
+            isSubmissionSuccessful={isSubmissionSuccessful} />
     );
 };
 
