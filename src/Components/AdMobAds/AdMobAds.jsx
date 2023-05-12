@@ -3,7 +3,7 @@ import { AdminContext } from '../../App';
 import { setLocalStorage } from '../../assets/appStorage/appStorage';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import { useEffect } from 'react';
-import { Fade, IconButton, Link, Tooltip } from '@mui/material';
+import { Fade, IconButton, Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import PopUpDialog from '../PopUpDialog/PopUpDialog';
@@ -78,114 +78,146 @@ const AdMobAds = () => {
     return (
         <section className=' container tw-min-h-screen tw-mt-4 tw-mb-5'>
 
-            {/*  Dialog for delete confirmation */}
-            <PopUpDialog
-                isActionBtnClicked={isDeleteBtnClicked}
-                setIsActionBtnClicked={setIsDeleteBtnClicked}
-                confirmAction={confirmDelete} />
+            <>
+                {/*  Dialog for delete confirmation */}
+                <PopUpDialog
+                    isActionBtnClicked={isDeleteBtnClicked}
+                    setIsActionBtnClicked={setIsDeleteBtnClicked}
+                    confirmAction={confirmDelete} />
 
-            {/* Successfully Deleted Pop_up */}
-            <SnackBar
-                message={'Deleted Successfully'}
-                isActionSuccessful={isDeletedSuccessfully}
-                setIsActionSuccessful={setIsDeletedSuccessfully} />
+                {/* Successfully Deleted Pop_up */}
+                <SnackBar
+                    message={'Deleted Successfully'}
+                    isActionSuccessful={isDeletedSuccessfully}
+                    setIsActionSuccessful={setIsDeletedSuccessfully} /></>
 
             {/* Main Content */}
             <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
 
                 {/*Table Header */}
-                <ComponentHeader placeholder='Search By Title...' button={true} btnNavigateTo='/ads/add' buttonName='AdMob Ads' />
+                <ComponentHeader
+                    placeholder='Search By Title...'
+                    button={true}
+                    btnNavigateTo='/ads/add'
+                    buttonName='AdMob Ads' />
 
                 {/* Table */}
-                <div className='tw-bg-gray-800/50 tw-rounded-md'>
-                    <div className='sm:tw-w-full tw-w-96 tw-mx-auto tw-overflow-x-scroll navyBlue md:tw-overflow-x-auto pb-3 tw-whitespace-nowrap md:tw-whitespace-normal'>
-
-                        <table className='tw-w-full tw-table-auto cursor-pointer'>
-                            <thead>
-                                <tr>
+                <TableContainer
+                    sx={{
+                        borderRadius: 0,
+                        borderColor: 'rgba(169, 169, 169, 0.2)'
+                    }}
+                    component={Paper}>
+                    <Fade
+                    onDurationChange={()=> 1500}
+                        in={true}>
+                        <Table
+                            sx={{
+                                minWidth: 650,
+                                backgroundColor: '#1a2234'
+                            }}>
+                            <TableHead>
+                                <TableRow>
                                     {['Id', 'Banner', 'Title', 'Description', 'Link', 'Action'].map((th, i) => {
-                                        return <th key={i} className='tw-px-4 tw-py-2'>{th}</th>
+                                        return (
+                                            <TableCell
+                                                key={i}
+                                                sx={{
+                                                    fontSize: 'medium',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                {th}
+                                            </TableCell>
+                                        )
                                     })}
-                                </tr>
-                            </thead>
+                                </TableRow>
+                            </TableHead>
 
-                            <tbody>
+                            <TableBody>
                                 {allAds.map(ads => {
                                     const { id, title, description, img, affiliate_link } = ads;
 
                                     return (
-                                        <Fade
-                                            key={id}
-                                            in={true}
-                                            onDurationChange={() => 1500}>
-                                            <tr className='hover:tw-bg-gray-700/10 first-letter'>
+                                        <TableRow
+                                            sx={{
+                                                ":hover": {
+                                                    backgroundColor: 'rgb(55 65 81 / 0.1)'
+                                                }
+                                            }}
+                                            key={id}>
 
-                                                {/* Id */}
-                                                <td className='tw-px-4 tw-py-2'>{id}</td>
+                                            {/* Id */}
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                                align="left">
+                                                {id}
+                                            </TableCell>
 
-                                                {/* Banner */}
-                                                <td className='tw-px-2 tw-py-2'>
-                                                    <Fade
-                                                        in={true}>
-                                                        <img className='tw-h-20 tw-rounded-sm' src={img} loading="lazy" alt={title} />
-                                                    </Fade>
-                                                </td>
+                                            {/* Banner */}
+                                            <TableCell
+                                                sx={{ p: 1.1 }}
+                                                align="left">
+                                                <Fade
+                                                    in={true}>
+                                                    <img className='tw-h-20 tw-rounded-sm' src={img} loading="lazy" alt={title} />
+                                                </Fade>
+                                            </TableCell>
 
-                                                {/* Title */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {title}</td>
+                                            {/* Title */}
+                                            <TableCell>
+                                                {title}
+                                            </TableCell>
 
-                                                {/* DESCRIPTION' */}
-                                                <td className='tw-px-4 text-justify tw-py-2'>
-                                                    {description}
-                                                </td>
+                                            {/* Description */}
+                                            <TableCell align="left">
+                                                {description}
+                                            </TableCell>
 
-                                                {/* Affiliate Link*/}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    <Tooltip
-                                                        placement='top'
-                                                        title='Affiliate Link'>
-                                                        <Link
-                                                            target='blank'
-                                                            href={affiliate_link} underline="hover" >
-                                                            Visit
-                                                        </Link>
+                                            {/* Affiliate Link */}
+                                            <TableCell align="left">
+                                                <Tooltip
+                                                    placement='top'
+                                                    title='Affiliate Link'>
+                                                    <Link
+                                                        target='blank'
+                                                        href={affiliate_link} underline="hover" >
+                                                        Visit
+                                                    </Link>
+                                                </Tooltip>
+                                            </TableCell>
+
+                                            {/* Action Buttons */}
+                                            <TableCell sx={{ px: 1 }}>
+                                                <div className='tw-grid tw-grid-cols-2 tw-gap-x-1'>
+                                                    {/* Edit */}
+                                                    <Tooltip arrow placement='top' title='Edit'>
+                                                        <IconButton
+                                                            onClick={() => {
+                                                                navigate(`/ads/edit/${id}`)
+                                                            }}
+
+                                                            className='col' aria-label="edit">
+                                                            <Edit fontSize='inherit' />
+                                                        </IconButton>
                                                     </Tooltip>
-                                                </td>
 
-                                                {/* Action Buttons goes here */}
-                                                <td className='tw-px-2'>
-                                                    <div className='tw-grid tw-grid-cols-2 tw-gap-x-1'>
-
-                                                        {/* Edit */}
-                                                        <Tooltip arrow placement='top' title='Edit'>
-                                                            <IconButton
-                                                                onClick={() => {
-                                                                    navigate(`/ads/edit/${id}`)
-                                                                }}
-
-                                                                className='col' aria-label="edit">
-                                                                <Edit fontSize='inherit' />
-                                                            </IconButton>
-                                                        </Tooltip>
-
-                                                        {/*Delete*/}
-                                                        <Tooltip arrow placement='top' title='Delete'>
-                                                            <IconButton
-                                                                onClick={() => deleteBtnHandler(id)} color='error' className='col' aria-label="delete">
-                                                                <Delete fontSize='inherit' />
-                                                            </IconButton>
-                                                        </Tooltip>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </Fade>
+                                                    {/*Delete*/}
+                                                    <Tooltip arrow placement='top' title='Delete'>
+                                                        <IconButton
+                                                            onClick={() => deleteBtnHandler(id)} color='error' className='col' aria-label="delete">
+                                                            <Delete fontSize='inherit' />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
                                     )
                                 })}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            </TableBody>
+                        </Table>
+                    </Fade>
+                </TableContainer>
             </div>
         </section >
     );

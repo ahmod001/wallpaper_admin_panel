@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
-import { Fade } from '@mui/material';
+import React, { useState } from 'react';
+import { Fade, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Pagination from '../Pagination/Pagination';
 import { getLocalStorage, setLocalStorage } from '../../assets/appStorage/appStorage';
+import { TrendingUpRounded } from '@mui/icons-material';
 
 export const fakeTable = [
     { id: 0, title: '4k Full HD Tiger', views: 6000, shares: 299, favorites: 111, downloads: 5000, used: 4890 },
@@ -15,7 +16,7 @@ export const fakeTable = [
 const WallpaperStatistics = () => {
     const defaultPage = getLocalStorage('defaultStaticsPage');
     const [currentPageNum, setCurrentPageNum] = useState(defaultPage || 1);
-    const [totalPageCount, setTotalPageCount] = useState(5);
+    const [totalPageCount, setTotalPageCount] = useState(3);
 
     // Pagination Handler
     const handlePagination = (event, value) => {
@@ -25,58 +26,92 @@ const WallpaperStatistics = () => {
 
     return (
         <div className='navyBlue tw-rounded-lg tw-space-y-5 mb-4 sm:tw-p-5 tw-p-4 tw-pb-3'>
-            <h2 className='sm:tw-px-0 tw-px-6 sm:tw-text-2xl tw-text-xl tw-font-semibold tw-tracking-wide'>Statistics</h2>
+            <h2 className='tw-text-2xl tw-font-semibold tw-tracking-wide '>Statistics {<TrendingUpRounded />}</h2>
 
-            <div className='tw-whitespace-nowrap tw-w-96 mx-auto sm:tw-w-full tw-overflow-x-scroll md:tw-overflow-x-auto pb-3'>
-                <table className='tw-table-auto tw-w-full cursor-pointer '>
-                    <thead>
-                        <tr>
-                            <th className='tw-px-4 tw-py-2'>Id</th>
-                            <th className='tw-px-4 tw-py-2'>Title</th>
-                            <th className='tw-px-4 tw-py-2'>
-                                <i className='bi bi-eye-fill me-1 tw-text-sm' />Views</th>
-                            <th className='tw-px-4 tw-py-2'>
-                                <i className='bi bi-link-45deg me-1 tw-text-sm' />Shares</th>
-                            <th className='tw-px-4 tw-py-2'>
-                                <i className='bi bi-heart-fill me-1 tw-text-xs' />Favorites</th>
-                            <th className='tw-px-4 tw-py-2'>
-                                <i className='bi bi-download me-1 tw-text-sm' />Downloads</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {fakeTable.map((table, index) => {
-                            return (
-                                <Fade
-                                    key={index}
-                                    in={true}
-                                    onDurationChange={() => 1500}>
-                                    <tr className='hover:tw-bg-gray-700/10'>
+            {/* Table */}
+            <TableContainer
+                sx={{
+                    borderRadius: 0,
+                    borderColor: 'rgba(169, 169, 169, 0.2)'
+                }}
+                component={Paper}>
+                <Fade
+                    onDurationChange={() => 1500}
+                    in={true}>
+                    <Table
+                        sx={{
+                            minWidth: 650,
+                            backgroundColor: '#1a2234'
+                        }}>
+                        <TableHead>
+                            <TableRow>
+                                {['Id', 'Title', 'Views', 'Shares', 'Favorites', 'Downloads'].map((th, i) => {
+                                    return (
+                                        <TableCell
+                                            key={i}
+                                            sx={{
+                                                fontSize: 'medium',
+                                                fontWeight: 'bold'
+                                            }}>
+                                            {th}
+                                        </TableCell>
+                                    )
+                                })}
+                            </TableRow>
+                        </TableHead>
+
+                        <TableBody>
+                            {fakeTable.map(wallpaper => {
+                                const { id, title, views, shares, downloads, favorites } = wallpaper;
+
+                                return (
+                                    <TableRow
+                                        sx={{
+                                            ":hover": {
+                                                backgroundColor: 'rgb(55 65 81 / 0.1)'
+                                            }
+                                        }}
+                                        key={id}>
 
                                         {/* Id */}
-                                        <td className='tw-px-4 tw-py-2'>{table.id}</td>
+                                        <TableCell
+                                            component="th"
+                                            scope="row"
+                                            align="left">
+                                            {id}
+                                        </TableCell>
 
                                         {/* Title */}
-                                        <td className='tw-px-4 tw-py-2'>{table.title}</td>
+                                        <TableCell>
+                                            {title}
+                                        </TableCell>
 
                                         {/* Views */}
-                                        <td className='tw-px-4 tw-py-2'>{table.views}</td>
+                                        <TableCell>
+                                            {views}
+                                        </TableCell>
 
                                         {/* Shares */}
-                                        <td className='tw-px-4 tw-py-2'>{table.shares}</td>
+                                        <TableCell align="left">
+                                            {shares}
+                                        </TableCell>
 
-                                        {/* Favorites */}
-                                        <td className='tw-px-4 tw-py-2'>{table.favorites}</td>
+                                        {/* Favorite */}
+                                        <TableCell align="left">
+                                            {favorites}
+                                        </TableCell>
 
                                         {/* Downloads */}
-                                        <td className='tw-px-4 tw-py-2'>{table.downloads}</td>
-
-                                    </tr>
-                                </Fade>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
+                                        <TableCell align="left">
+                                            {downloads}
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </Fade>
+            </TableContainer>
 
             <Pagination
                 count={totalPageCount}

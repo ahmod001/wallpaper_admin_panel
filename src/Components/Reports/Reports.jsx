@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import Pagination from '../Pagination/Pagination';
 import { getLocalStorage, setLocalStorage } from '../../assets/appStorage/appStorage';
-import { Fade, IconButton, Tooltip } from '@mui/material';
+import { Fade, Tooltip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { AdminContext } from '../../App';
 import PopUpDialog from '../PopUpDialog/PopUpDialog';
@@ -57,7 +57,7 @@ const Reports = () => {
     // Using Context API
     const { CurrentPage } = useContext(AdminContext)
     const [currentPage, setCurrentPage] = CurrentPage;
-    
+
     setTimeout(() => {
         setCurrentPage('Reports')
     }, 1);
@@ -116,80 +116,112 @@ const Reports = () => {
             {/* Main Content */}
             <div className='navyBlue container tw-rounded-lg tw-space-y-5 pb-3'>
                 {/*Table Header */}
-                <ComponentHeader placeholder='Search By Name...' button={false} />
+                <ComponentHeader
+                    placeholder='Search By Name...'
+                    button={false} />
 
                 {/* Table */}
-                <div className='tw-bg-gray-800/50 tw-rounded-md'>
-                    <div className='sm:tw-w-full tw-w-96 tw-mx-auto navyBlue tw-overflow-x-auto pb-3 tw-whitespace-nowrap md:tw-whitespace-normal'>
-
-                        <table className='tw-w-full tw-table-auto cursor-pointer'>
-                            <thead>
-                                <tr>
+                <TableContainer
+                    sx={{
+                        borderRadius: 0,
+                        borderColor: 'rgba(169, 169, 169, 0.2)'
+                    }}
+                    component={Paper}>
+                    <Fade
+                        onDurationChange={() => 1500}
+                        in={true}>
+                        <Table
+                            sx={{
+                                minWidth: 650,
+                                backgroundColor: '#1a2234'
+                            }}>
+                            <TableHead>
+                                <TableRow>
                                     {['Id', 'Name', 'Email', 'Title', 'Massage', 'Date', 'Action'].map((th, i) => {
-                                        return <th className='tw-px-4 tw-py-2' key={i}>{th}</th>
+                                        return (
+                                            <TableCell
+                                                key={i}
+                                                sx={{
+                                                    fontSize: 'medium',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                {th}
+                                            </TableCell>
+                                        )
                                     })}
-                                </tr>
-                            </thead>
+                                </TableRow>
+                            </TableHead>
 
-                            <tbody>
+                            <TableBody>
                                 {reports.map(report => {
                                     const { id, name, email, title, massage } = report;
 
                                     return (
-                                        <Fade
-                                            key={id}
-                                            in={true}
-                                            onDurationChange={() => 1500}>
-                                            <tr className='hover:tw-bg-gray-700/10'>
+                                        <TableRow
+                                            sx={{
+                                                ":hover": {
+                                                    backgroundColor: 'rgb(55 65 81 / 0.1)'
+                                                }
+                                            }}
+                                            key={id}>
 
-                                                {/* Id */}
-                                                <td className='tw-px-4 tw-py-2'>{id}</td>
+                                            {/* Id */}
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                                align="left">
+                                                {id}
+                                            </TableCell>
 
-                                                {/* Name */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {name}
-                                                </td>
+                                            {/* Name */}
+                                            <TableCell>
+                                                {name}
+                                            </TableCell>
 
-                                                {/* Email */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {email}
-                                                </td>
+                                            {/* Email*/}
+                                            <TableCell>
+                                                {email}
+                                            </TableCell>
 
-                                                {/* Title */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {title}
-                                                </td>
+                                            {/* Title */}
+                                            <TableCell align="left">
+                                                {title}
+                                            </TableCell>
 
-                                                {/* MASSAGE' */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {massage.slice(0, 300)}
-                                                </td>
+                                            {/* Massage */}
+                                            <TableCell align="left">
+                                                {massage}
+                                            </TableCell>
 
-                                                {/* Date */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {Date().slice(0, 25)}
-                                                </td>
+                                            {/* Date */}
+                                            <TableCell align="left">
+                                                {Date().slice(0, 25)}
+                                            </TableCell>
 
-                                                {/* delete-report Button */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    <Tooltip arrow title="Delete" placement="top">
-                                                        <IconButton onClick={() => deleteBtnHandler(report.id)} size='normal'
-                                                            color="error" aria-label="upload picture" component="label">
-                                                            <Delete fontSize="inherit" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </td>
-                                            </tr>
-                                        </Fade>
+                                            {/* Delete Btn */}
+                                            <TableCell >
+                                                <Tooltip
+                                                    arrow
+                                                    title="Delete"
+                                                    placement="top">
+                                                    <IconButton
+                                                        onClick={() => deleteBtnHandler(report.id)}
+                                                        size='normal'
+                                                        color="error" aria-label="upload picture" component="label">
+                                                        <Delete fontSize="inherit" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
+                                        </TableRow>
                                     )
                                 })}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            </TableBody>
+                        </Table>
+                    </Fade>
+                </TableContainer>
 
-                 {/* Pagination */}
-                 <Pagination
+                {/* Pagination */}
+                <Pagination
                     count={totalPageCount}
                     currentPageNum={currentPageNum}
                     handlePagination={handlePagination} />

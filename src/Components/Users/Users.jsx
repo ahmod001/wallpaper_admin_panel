@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import ComponentHeader from '../ComponentHeader/ComponentHeader';
 import Pagination from '../Pagination/Pagination';
 import { getLocalStorage, setLocalStorage } from '../../assets/appStorage/appStorage';
-import { Button, Fade, Tooltip } from '@mui/material';
+import { Fade, Button, Tooltip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { AdminContext } from '../../App';
 import SnackBar from '../SnackBar/SnackBar';
 import PopUpDialog from '../PopUpDialog/PopUpDialog';
@@ -34,7 +34,7 @@ const Users = () => {
     // This States for Pagination
     const defaultPage = getLocalStorage('defaultUserPage');
     const [currentPageNum, setCurrentPageNum] = useState(defaultPage || 1);
-    const [totalPageCount, setTotalPageCount] = useState(5);
+    const [totalPageCount, setTotalPageCount] = useState(3);
 
     // Pagination Handler
     const handlePagination = (event, value) => {
@@ -98,96 +98,124 @@ const Users = () => {
                 <ComponentHeader placeholder='Search By Name...' />
 
                 {/* Table */}
-                <div className='tw-bg-gray-800/50 tw-rounded-md'>
-                    <div className='sm:tw-w-full tw-w-96 tw-mx-auto tw-overflow-x-scroll navyBlue md:tw-overflow-x-auto pb-3 tw-whitespace-nowrap md:tw-whitespace-normal'>
-
-                        <table className='tw-w-full tw-table-auto cursor-pointer'>
-                            <thead>
-                                <tr>
+                <TableContainer
+                    sx={{
+                        borderRadius: 0,
+                        borderColor: 'rgba(169, 169, 169, 0.2)'
+                    }}
+                    component={Paper}>
+                    <Fade
+                        onDurationChange={() => 1500}
+                        in={true}>
+                        <Table
+                            sx={{
+                                minWidth: 650,
+                                backgroundColor: '#1a2234'
+                            }}>
+                            <TableHead>
+                                <TableRow>
                                     {['Id', 'Name', 'Email', 'Phone', 'Status', 'Action'].map((th, i) => {
-                                        return <th className='tw-px-4 tw-py-2' key={i}>{th}</th>
+                                        return (
+                                            <TableCell
+                                                key={i}
+                                                sx={{
+                                                    fontSize: 'medium',
+                                                    fontWeight: 'bold'
+                                                }}>
+                                                {th}
+                                            </TableCell>
+                                        )
                                     })}
-                                </tr>
-                            </thead>
+                                </TableRow>
+                            </TableHead>
 
-                            <tbody>
+                            <TableBody>
                                 {users.map(user => {
+                                    const { id, name, email, phone, status } = user;
+
                                     return (
-                                        <Fade key={user.id} in={true} onDurationChange={() => 1500}>
-                                            <tr className='hover:tw-bg-gray-700/10 first-letter'>
+                                        <TableRow
+                                            sx={{
+                                                ":hover": {
+                                                    backgroundColor: 'rgb(55 65 81 / 0.1)'
+                                                }
+                                            }}
+                                            key={id}>
 
-                                                {/* Id */}
-                                                <td className='tw-px-4 tw-py-2'>{user.id}</td>
+                                            {/* Id */}
+                                            <TableCell
+                                                component="th"
+                                                scope="row"
+                                                align="left">
+                                                {id}
+                                            </TableCell>
 
-                                                {/* Name */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {user.name}
-                                                </td>
+                                            {/* Name */}
+                                            <TableCell>
+                                                {name}
+                                            </TableCell>
 
-                                                {/* Email */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {user.email}
-                                                </td>
+                                            {/* Email */}
+                                            <TableCell>
+                                                {email}
+                                            </TableCell>
 
-                                                {/* phone */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {user.phone}
-                                                </td>
+                                            {/* Phone */}
+                                            <TableCell>
+                                                {phone}
+                                            </TableCell>
 
-                                                {/* Status */}
-                                                <td className='tw-px-4 tw-py-2 tw-font-semibold'>
-                                                    {user.status ?
-                                                        <h3 className='tw-text-green-500 '>
-                                                            Active</h3>
+                                            {/*Status*/}
+                                            <TableCell align="left">
+                                                {user.status ?
+                                                    <h3 className='tw-text-green-500 '>
+                                                        Active</h3>
+                                                    : <h3 className='tw-text-red-500 '>Inactive</h3>}
+                                            </TableCell>
 
-                                                        : <h3 className='tw-text-red-500 '>Inactive</h3>}
-                                                </td>
+                                            {/* Action Buttons */}
+                                            <TableCell >
+                                                {  // block-User Button
+                                                    user.status ?
+                                                        <Tooltip
+                                                            arrow
+                                                            name="Block User"
+                                                            placement="top">
+                                                            <Button
+                                                                size='small'
+                                                                onClick={
+                                                                    () => blockBtnHandler(user.id)
+                                                                }
+                                                                variant='text'
+                                                                color='error'>
+                                                                Block
+                                                            </Button>
+                                                        </Tooltip>
 
-                                                {/* Action Buttons here */}
-                                                <td className='tw-px-4 tw-py-2'>
-                                                    {
-                                                        // block-User Button
-                                                        user.status ?
-                                                            <Tooltip
-                                                                arrow
-                                                                name="Block User"
-                                                                placement="top">
-                                                                <Button
-                                                                    size='small'
-                                                                    onClick={
-                                                                        () => blockBtnHandler(user.id)
-                                                                    }
-                                                                    variant='text'
-                                                                    color='error'>
-                                                                    Block
-                                                                </Button>
-                                                            </Tooltip>
-
-                                                            // Unblock User
-                                                            : <Tooltip
-                                                                arrow
-                                                                name="Unblock User"
-                                                                placement="top">
-                                                                <Button
-                                                                    size='small'
-                                                                    onClick={() => unBlockBtnHandler(user.id)}
-                                                                    variant='text'
-                                                                    color='success'>
-                                                                    Unblock
-                                                                </Button>
-                                                            </Tooltip>}
-                                                </td>
-                                            </tr>
-                                        </Fade>
+                                                        // Unblock User
+                                                        : <Tooltip
+                                                            arrow
+                                                            name="Unblock User"
+                                                            placement="top">
+                                                            <Button
+                                                                size='small'
+                                                                onClick={() => unBlockBtnHandler(user.id)}
+                                                                variant='text'
+                                                                color='success'>
+                                                                Unblock
+                                                            </Button>
+                                                        </Tooltip>}
+                                            </TableCell>
+                                        </TableRow>
                                     )
                                 })}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                    {/* Pagination */}
-                    <Pagination
+                            </TableBody>
+                        </Table>
+                    </Fade>
+                </TableContainer>
+
+                {/* Pagination */}
+                <Pagination
                     count={totalPageCount}
                     currentPageNum={currentPageNum}
                     handlePagination={handlePagination} />
