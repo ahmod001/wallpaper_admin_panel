@@ -30,7 +30,6 @@ const Dashboard = () => {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
-
     return (
         <section className='container tw-px-4 tw-space-y-7'>
 
@@ -44,7 +43,7 @@ const Dashboard = () => {
                             style={{ transformOrigin: 'center' }}
                             onDurationChange={() => 1500}>
                             <div onClick={() => navigate(card.redirectLink)}
-                                className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold' >
+                                className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-md tw-flex sm:tw-h-32 tw-h-28 tw-col hover:tw-bg-gray-800 tw-font-semibold' >
                                 <div className='m-auto tw-space-y-2'>
                                     <h3 className={` ${card.color} tw-text-3xl lg:tw-text-4xl tw-font-semibold tw-tracking-wide`}>{formatNumber(card.length)}
                                     </h3>
@@ -57,7 +56,7 @@ const Dashboard = () => {
                 {/* Settings */}
                 <Grow in={true} onDurationChange={() => 1500}>
                     <div onClick={() => navigate('/settings')}
-                        className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-lg hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold'>
+                        className='tw-text-center navyBlue tw-cursor-pointer tw-rounded-md hover:tw-bg-gray-800 tw-flex sm:tw-h-32 tw-h-28 tw-col tw-font-semibold'>
                         <div className='m-auto tw-space-y-2'>
                             <h3 className='tw-text-3xl md:tw-text-4xl tw-font-semibold tw-text-gray-300'>
                                 <i className="bi bi-gear" />

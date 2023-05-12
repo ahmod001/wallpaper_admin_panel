@@ -46,7 +46,6 @@ function App() {
             <Route path='/ads' element={<AdMobAds />} />
             <Route path='/ads/add' element={<AddAdMob />} />
             <Route path='/ads/edit/:adsId' element={<EditAdMob />} />
-            
             <Route path='/*' element={<PageNotFound />} />
           </Route>
           <Route path='/sign_in' element={<SignIn />} />

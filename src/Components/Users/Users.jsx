@@ -72,7 +72,7 @@ const Users = () => {
     }
 
     return (
-        <section className='container tw-mt-4 tw-mb-7'>
+        <section className='container tw-min-h-screen tw-mt-4 tw-mb-7'>
             {/*  Dialog for Block confirmation */}
             <PopUpDialog
                 isActionBtnClicked={isBlockBtnClicked}

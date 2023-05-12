@@ -15,11 +15,16 @@ const MainLayout = () => {
     }
 
     return (
-        <Fade in={true} onDurationChange={() => 1500}>
+        <Fade
+            in={true}
+            onDurationChange={() => 1500}>
             <section className='tw-flex md:tw-space-x-1'>
-                <Sidebar collapseSideBar={collapseSideBar} CollapseHandler={CollapseHandler} />
+                <Sidebar
+                    collapseSideBar={collapseSideBar}
+                    CollapseHandler={CollapseHandler} />
                 <div className='2xl:tw-w-11/12 lg:tw-w-10/12 tw-w-full' >
-                    <Header CollapseHandler={CollapseHandler} />
+                    <Header
+                        CollapseHandler={CollapseHandler} />
                     <Outlet />
                     <Footer />
                 </div>

@@ -56,7 +56,7 @@ const PushNotification = () => {
                     in={true}
                     onDurationChange={() => 1500}>
                     <form onSubmit={handleSubmit(onSubmit)}
-                        action="push_notification" className=' my-auto tw-space-y-5 sm:tw-w-11/12' method="post">
+                        action="push_notification" className=' my-auto tw-space-y-5 tw-w-full sm:tw-w-11/12' method="post">
 
                         {/* Title */}
                         <div className='row'>

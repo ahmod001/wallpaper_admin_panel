@@ -99,7 +99,7 @@ const Reports = () => {
         setReports(reports.filter(report => report.id !== targetedReportId))
     }
     return (
-        <section className='container tw-mt-4 tw-mb-7'>
+        <section className='container tw-min-h-screen tw-mt-4 tw-mb-7'>
 
             {/*  Dialog for delete confirmation */}
             <PopUpDialog
