@@ -26,7 +26,9 @@ const WallpaperStatistics = () => {
 
     return (
         <div className='navyBlue tw-rounded-lg tw-space-y-5 mb-4 sm:tw-p-5 tw-p-4 tw-pb-3'>
-            <h2 className='tw-text-2xl tw-font-semibold tw-tracking-wide '>Statistics {<TrendingUpRounded />}</h2>
+            <h2 className='tw-text-2xl tw-font-semibold tw-tracking-wide '>
+                Statistics {<TrendingUpRounded />}
+            </h2>
 
             {/* Table */}
             <TableContainer

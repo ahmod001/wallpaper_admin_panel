@@ -69,7 +69,7 @@ const Reports = () => {
     // This States for Pagination
     const defaultPage = getLocalStorage('defaultReportPage');
     const [currentPageNum, setCurrentPageNum] = useState(defaultPage || 1);
-    const [totalPageCount, setTotalPageCount] = useState(5);
+    const [totalPageCount, setTotalPageCount] = useState(3);
 
     // Pagination Handler
     const handlePagination = (event, value) => {

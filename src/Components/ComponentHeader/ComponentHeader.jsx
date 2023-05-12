@@ -3,7 +3,8 @@ import { Button, FormControl, Input, InputAdornment, InputLabel, Tooltip } from 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchBar, SearchIconWrapper, StyledInputBase } from "./MuiCustomSearchBar/MuiCustomSearchBar";
-// This sub_component will be use on the top of all content component//
+
+// This subComponent will serve as the topmost layer for all content components
 const ComponentHeader = ({ button, btnNavigateTo, buttonName, placeholder }) => {
     const navigate = useNavigate()
 
@@ -29,13 +30,21 @@ const ComponentHeader = ({ button, btnNavigateTo, buttonName, placeholder }) => 
             </SearchBar>
 
 
-            {/* Add new element button */}
-            {button && <Tooltip placement="top" title={`Add new ${buttonName.toLowerCase()}`}>
-                <Button onClick={() => navigate(`${btnNavigateTo}`)}
-                    color='success' size='small' className='text-light my-auto' variant="contained" startIcon={<Add fontSize='inherit' />}>
-                    {`Add ${buttonName}`}
-                </Button>
-            </Tooltip>}
+            {/* Create new element button */}
+            {button &&
+                <Tooltip
+                    placement="top"
+                    title={`Create new ${buttonName.toLowerCase()}`}>
+                    <Button
+                        onClick={() => navigate(`${btnNavigateTo}`)}
+                        color='success'
+                        size='small'
+                        className='text-light my-auto'
+                        variant="contained"
+                        startIcon={<Add fontSize='inherit' />}>
+                        {`${buttonName}`}
+                    </Button>
+                </Tooltip>}
 
         </header>
     );

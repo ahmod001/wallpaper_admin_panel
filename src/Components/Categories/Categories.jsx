@@ -181,11 +181,14 @@ const Categories = () => {
                                             </TableCell>
 
                                             {/* Action Buttons */}
-                                            <TableCell >
+                                            <TableCell>
                                                 <div className='tw-grid tw-grid-cols-2 tw-gap-x-1'>
 
                                                     {/* Edit */}
-                                                    <Tooltip arrow placement='top' title='Edit'>
+                                                    <Tooltip
+                                                        arrow
+                                                        placement='top'
+                                                        title='Edit'>
                                                         <IconButton
                                                             onClick={() => {
                                                                 navigate(`/categories/edit/${category.id}`)
@@ -197,9 +200,13 @@ const Categories = () => {
                                                     </Tooltip>
 
                                                     {/*Delete*/}
-                                                    <Tooltip arrow placement='top' title='Delete'>
+                                                    <Tooltip
+                                                        arrow
+                                                        placement='top'
+                                                        title='Delete'>
                                                         <IconButton
-                                                            onClick={() => deleteBtnHandler(category.id)} color='error' className='col' aria-label="delete">
+                                                            onClick={() => deleteBtnHandler(category.id)}
+                                                            color='error' className='col' aria-label="delete">
                                                             <Delete fontSize='inherit' />
                                                         </IconButton>
                                                     </Tooltip>
