@@ -53,4 +53,4 @@ HD Wallpapers Admin is powered by an impressive tech stack, including:
 
 This project is licensed under the [MIT License](LICENSE).
 
-©2023 
+©2023 Developed by Ahmod Hasan
