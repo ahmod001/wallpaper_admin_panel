@@ -50,6 +50,9 @@ HD Wallpapers Admin is powered by an impressive tech stack, including:
 5. Seamlessly integrate AdMob ads, turning your passion for stunning wallpapers into a lucrative endeavor.
 6. Stay connected with your users by sending captivating notifications that keep them engaged and excited about your app's latest offerings.
 
+### Note
+
+All Tailwind classes in our project are prefixed with `tw-`. For example: `tw-py-12` represents a Tailwind class for setting padding on the Y-axis.
 
 ## License
 
