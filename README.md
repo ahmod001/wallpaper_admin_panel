@@ -34,11 +34,12 @@ Ready to take charge? Follow these simple installation steps:
 HD Wallpapers Admin is powered by an impressive tech stack, including:
 
 - React
-- MUI Bootstrap
+- MUI 
+- Bootstrap-5
 - Tailwind CSS
 - JavaScript
-- HTML
-- CSS
+- HTML5
+- CSS3
 
 ## Unleash Your Creativity
 
@@ -48,6 +49,7 @@ HD Wallpapers Admin is powered by an impressive tech stack, including:
 4. Empower your users with an exceptional browsing experience, ensuring they find the perfect wallpapers to personalize their devices.
 5. Seamlessly integrate AdMob ads, turning your passion for stunning wallpapers into a lucrative endeavor.
 6. Stay connected with your users by sending captivating notifications that keep them engaged and excited about your app's latest offerings.
+
 
 ## License
 
