@@ -15,11 +15,12 @@ const PasswordField = ({ placeholder }) => {
             name="password"
             control={methods.control}
             rules={{ required: true, minLength: 6 }}
-            defaultValue={getLocalStorage('loginInfo').password || ''}
-            
+            defaultValue={'admin123'}
+
             render={({ field }) => (
                 <FormControl
                     variant="outlined"
+                    size='small'
                     fullWidth
                     color='action'
                     error={Boolean(errors.password)}
@@ -38,7 +39,9 @@ const PasswordField = ({ placeholder }) => {
                                     onClick={() => setShowPassword(!showPassword)}
                                     edge="end"
                                 >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    {showPassword ?
+                                        <VisibilityOff fontSize='small' />
+                                        : <Visibility fontSize='small' />}
                                 </IconButton>
                             </InputAdornment>
                         }

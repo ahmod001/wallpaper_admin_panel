@@ -12,6 +12,13 @@ const Sidebar = ({ collapseSideBar, CollapseHandler }) => {
         navigate(href)
         setLocalStorage('componentId', itemId)
     }
+
+    // SignOut Handler
+    const handleSignOut = () => {
+        sessionStorage.removeItem('user_info')
+        window.location.reload();
+    }
+
     // Navbar Items
     const navItems = [
         {
@@ -75,12 +82,14 @@ const Sidebar = ({ collapseSideBar, CollapseHandler }) => {
                 <h3 className='my-auto sm:tw-text-xl tw-text-lg tw-font-bold'>
 
                     {/* App Title */}
-                    <span onClick={() => navigate('/')}>HD Wallpaper</span>
+                    <span onClick={() => navigate('/')}>
+                        HD Wallpaper
+                    </span>
 
                     {/* Collapse_button */}
                     {collapseSideBar &&
-                        <Tooltip
-                            placement="right" title='Close'>
+                        <Tooltip placement="right"
+                            title='Close'>
                             <IconButton
                                 onClick={CollapseHandler}
                                 sx={{ ml: 0.9, my: 'auto' }}
@@ -94,7 +103,6 @@ const Sidebar = ({ collapseSideBar, CollapseHandler }) => {
             {/* Nav_links */}
             <List className='tw-space-y-2'>
                 {navItems.map(nav => {
-
                     return (
                         <ListItem button
                             sx={{
@@ -114,8 +122,12 @@ const Sidebar = ({ collapseSideBar, CollapseHandler }) => {
                 })}
 
                 {/* SignOut */}
-                <ListItem button><a className='my-auto tw-ml-4'>
-                    <span><i className="bi bi-box-arrow-right tw-mr-2"></i></span>Sign Out</a>
+                <ListItem button
+                    sx={{ ":active":{backgroundColor: '#DC2626' }}}
+                    onClick={handleSignOut}>
+                    <a className='my-auto tw-ml-4'>
+                        <span><i className="bi bi-box-arrow-right tw-mr-2"></i></span>
+                        Sign Out</a>
                 </ListItem>
 
             </List>

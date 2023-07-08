@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Alert, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, TextField } from "@mui/material";
+import { Alert, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import PasswordField from './PasswordField/PasswordField';
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { getLocalStorage, setLocalStorage } from '../../assets/appStorage/appStorage'
 import { Lock, LockOpen } from '@mui/icons-material';
 import FullScreenPopUp from "../FullScreenPopUp/FullScreenPopUp";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
     const [isRememberMe, setIsRememberMe] = useState(false);
@@ -14,15 +15,27 @@ const SignIn = () => {
     const methods = useForm();
     const { register, handleSubmit, control, formState: { errors } } = methods;
 
+    const navigate = useNavigate()
+    const { from } = useLocation().state || { from: { pathname: '/' } }
+
     // Form Submit btn handler 
     const onSubmit = (data) => {
-        console.log(data);
-        isRememberMe && setLocalStorage('loginInfo', data);
+        const defaultUser = {
+            email: 'admin@gmail.com',
+            password: 'admin123'
+        }
+        if (defaultUser.email === data.email &&
+            defaultUser.password === data.password) {
+            navigate(from)
+            sessionStorage.setItem('user_info', JSON.stringify(data))
+        } else {
+            setIsSignInFailed(true)
+        }
     }
 
     // Close error Pop_up Handler
     const handleClose = () => {
-        setIsSignInFailed(!isSignInFailed)
+        setIsSignInFailed(false)
     }
 
     return (
@@ -31,28 +44,26 @@ const SignIn = () => {
             {/* If there any authentication , this pop_up error will show */}
             <FullScreenPopUp
                 error={true}
-                message={'Sign in Failed'}
+                message={'No user found'}
                 open={isSignInFailed}
                 handleClose={handleClose} />
 
             {/* Main Component */}
-            <Fade
-                in={true}
-                onDurationChange={() => 1500}>
-
-                <div className='m-auto'>
-                    {/* App Name*/}
-                    <div className='tw-h-16 tw-flex tw-justify-center tw-space-x-1 '>
+            <Fade in={true}>
+                <div className='m-auto tw-space-y-2'>
+                    {/* Brand Icon*/}
+                    <div className='tw-h-16 tw-flex tw-justify-center tw-space-x-2 '>
                         <img src="/logo.png"
                             className='my-auto tw-h-8 tw-rounded-full tw-object-cover' alt="logo" />
-                        <h3 className='my-auto tw-text-base tw-font-bold'>
+
+                        <h3 className='my-auto tw-font-bold'>
                             HD Wallpaper
                         </h3>
                     </div>
 
                     {/* Sign_in form */}
-                    <div className={`tw-w-96 tw-rounded-md navyBlue tw-py-7 tw-px-3 
-                    ${isSignIn ? 'tw-space-y-5' : 'tw-space-y-7'} tw-text-left`}>
+                    <div className={`tw-w-96 tw-rounded-md navyBlue tw-py-9 tw-px-3 
+                    tw-space-y-7 tw-text-left`}>
 
                         {/* Form Title */}
                         <h3 className='tw-text-center text-uppercase tw-tracking-wider tw-font-bold tw-text-xl'>
@@ -60,8 +71,7 @@ const SignIn = () => {
                         </h3>
 
                         <FormProvider {...methods}>
-                            <form
-                                onSubmit={handleSubmit(onSubmit)}
+                            <form onSubmit={handleSubmit(onSubmit)}
                                 className={`${isSignIn ? 'tw-space-y-4'
                                     : 'tw-space-y-6'} px-3`}>
 
@@ -76,26 +86,34 @@ const SignIn = () => {
                                                 value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}/,
                                             }
                                         }}
-                                        defaultValue={getLocalStorage('loginInfo').email || ''}
+                                        defaultValue="admin@gmail.com"
                                         render={({ field, fieldState: { error } }) => (
                                             <FormControl
                                                 fullWidth
+                                                size="small"
                                                 variant="outlined"
                                                 error={Boolean(error)}
-                                                color={error ? 'error' : 'action'}>
-                                                <TextField
+                                                color={error ? 'error' : 'primary'}
+                                            >
+                                                <InputLabel htmlFor="email-input">Email</InputLabel>
+                                                <OutlinedInput
                                                     {...field}
-                                                    autoFocus
+                                                    id="email-input"
                                                     label="Email"
                                                     type="email"
-                                                    color={error ? 'error' : 'action'} />
-                                                {error && <FormHelperText>Invalid Email</FormHelperText>}
+                                                    size="small" // Added size prop here
+                                                    autoComplete="off"
+                                                />
+                                                {error && (
+                                                    <FormHelperText>
+                                                        Invalid Email
+                                                    </FormHelperText>
+                                                )}
                                             </FormControl>
-                                        )}
-                                    />
+                                        )}/>
 
                                     {/* Password Fields*/}
-                                    {isSignIn === true ?
+                                    {isSignIn ?
                                         <PasswordField />
                                         : <PasswordField
                                             placeholder={'New Password'} />}
@@ -112,14 +130,14 @@ const SignIn = () => {
                                         label="Remember me" />}
 
                                 {isSignIn ?
-                                    // Log_In Button 
+                                    // Sign in Button 
                                     <Button
                                         value='logIn'
                                         color='error'
                                         type='submit'
                                         className='tw-w-full'
                                         variant="contained">
-                                        Login
+                                        Sign In
                                     </Button>
 
                                     // Reset_Password Button 
@@ -135,7 +153,7 @@ const SignIn = () => {
                         </FormProvider>
 
                         {/* Form Togglers goes here */}
-                        <div className='tw-text-gray-200 tw-text-center tw-text-sm 
+                        {/* <div className='tw-text-gray-200 tw-text-center tw-text-sm 
                     active:tw-text-red-400 hover:tw-text-gray-300 tw-cursor-pointer'>
                             {isSignIn ?
                                 <span onClick={() => setIsSignIn(!isSignIn)}>
@@ -152,7 +170,7 @@ const SignIn = () => {
                                     Login
                                 </span>
                             }
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </Fade>

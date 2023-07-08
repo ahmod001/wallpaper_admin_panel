@@ -49,7 +49,7 @@ function App() {
             <Route path='/ads/edit/:adsId' element={<EditAdMob />} />
             <Route path='/*' element={<PageNotFound />} />
           </Route>
-          <Route path='/sign_in' element={<SignIn />} />
+          <Route path='/sign-in' element={<SignIn />} />
         </Routes>
       </AdminContext.Provider>
     </BrowserRouter>
