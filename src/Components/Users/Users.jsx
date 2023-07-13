@@ -6,16 +6,10 @@ import { Fade, Button, Tooltip, IconButton, Paper, Table, TableBody, TableCell, 
 import { AdminContext } from '../../App';
 import SnackBar from '../SnackBar/SnackBar';
 import PopUpDialog from '../PopUpDialog/PopUpDialog';
+import { users } from '../../../Store/Store,jsx';
 
 // _Fake_Data_
-let fakeUsers = [
-    { id: 0, name: 'Alex Costa', email: 'example@gmail.com', phone: '+0880127836521', status: true },
-    { id: 1, name: 'Alex Costa', email: 'example@gmail.com', phone: '+0880127836521', status: true },
-    { id: 2, name: 'Alex Costa', email: 'example@gmail.com', phone: '+0880127836521', status: true },
-    { id: 3, name: 'Alex Costa', email: 'example@gmail.com', phone: '+0880127836521', status: true },
-    { id: 4, name: 'Alex Costa', email: 'example@gmail.com', phone: '+0880127836521', status: true },
-    { id: 5, name: 'Alex Costa', email: 'example@gmail.com', phone: '+0880127836521', status: true }
-]
+let fakeUsers = users
 
 const Users = () => {
 

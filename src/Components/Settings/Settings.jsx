@@ -6,8 +6,8 @@ import { AdminContext } from "../../App";
 import FullScreenPopUp from '../FullScreenPopUp/FullScreenPopUp';
 import SnackBar from '../SnackBar/SnackBar';
 
-// FakeAdmin
-const fakeAdmin = {
+// defaultAdmin
+const defaultAdmin = {
     name: 'Admin',
     email: 'admin@gmail.com',
     password: 'admin1234',
@@ -30,9 +30,9 @@ const Settings = () => {
 
     // Get Data
     useMemo(() => {
-        setAdmin(fakeAdmin)
-        setProfilePicture(fakeAdmin.img)
-        setLocalStorage('profilePicture', fakeAdmin.img)
+        setAdmin(defaultAdmin)
+        setProfilePicture(defaultAdmin.img)
+        setLocalStorage('profilePicture', defaultAdmin.img)
     }, [])
 
     // These State will control Pop_up Dialogs

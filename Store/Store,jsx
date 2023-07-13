@@ -1,0 +1,308 @@
+// REPORTS
+export const reports = [
+    {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "title": "Beautiful Sunset",
+        "message": "I love this wallpaper!",
+        "time": "14:55:11, 7 July 2023"
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "title": "Mountain Peaks",
+        "message": "Amazing view!",
+        "time": "14:57:22, 7 July 2023"
+    },
+    {
+        "id": 3,
+        "name": "Michael Johnson",
+        "email": "michael@example.com",
+        "title": "City Lights",
+        "message": "This wallpaper suits my style.",
+        "time": "15:01:43, 7 July 2023"
+    },
+    {
+        "id": 4,
+        "name": "Sarah Wilson",
+        "email": "sarah@example.com",
+        "title": "Nature's Beauty",
+        "message": "Incredible wallpaper!",
+        "time": "15:05:15, 7 July 2023"
+    },
+    {
+        "id": 5,
+        "name": "David Thompson",
+        "email": "david@example.com",
+        "title": "Ocean Waves",
+        "message": "I feel calm looking at this.",
+        "time": "15:10:02, 7 July 2023"
+    },
+    {
+        "id": 6,
+        "name": "Emily Anderson",
+        "email": "emily@example.com",
+        "title": "Forest Serenity",
+        "message": "I want this as my wallpaper!",
+        "time": "15:15:18, 7 July 2023"
+    },
+    {
+        "id": 7,
+        "name": "Daniel Martinez",
+        "email": "daniel@example.com",
+        "title": "Urban Life",
+        "message": "Great cityscape!",
+        "time": "15:20:57, 7 July 2023"
+    },
+    {
+        "id": 8,
+        "name": "Olivia Thompson",
+        "email": "olivia@example.com",
+        "title": "Sunrise Glory",
+        "message": "I love the colors!",
+        "time": "15:25:31, 7 July 2023"
+    },
+    {
+        "id": 9,
+        "name": "Ethan Davis",
+        "email": "ethan@example.com",
+        "title": "Abstract Art",
+        "message": "Unique and creative!",
+        "time": "15:30:49, 7 July 2023"
+    },
+    {
+        "id": 10,
+        "name": "Sophia Wilson",
+        "email": "sophia@example.com",
+        "title": "Mountain Reflections",
+        "message": "Stunning mirror effect!",
+        "time": "15:35:27, 7 July 2023"
+    },
+    {
+        "id": 11,
+        "name": "Liam Brown",
+        "email": "liam@example.com",
+        "title": "Night Sky",
+        "message": "Perfect for stargazers!",
+        "time": "15:40:38, 7 July 2023"
+    },
+    {
+        "id": 12,
+        "name": "Ava Garcia",
+        "email": "ava@example.com",
+        "title": "Vintage Vibes",
+        "message": "Brings back memories.",
+        "time": "15:45:12, 7 July 2023"
+    },
+    {
+        "id": 13,
+        "name": "Noah Johnson",
+        "email": "noah@example.com",
+        "title": "Beach Paradise",
+        "message": "I can almost feel the sand!",
+        "time": "15:50:05, 7 July 2023"
+    },
+    {
+        "id": 14,
+        "name": "Mia Anderson",
+        "email": "mia@example.com",
+        "title": "Waterfall Wonder",
+        "message": "Mesmerizing and refreshing!",
+        "time": "15:55:23, 7 July 2023"
+    },
+    {
+        "id": 15,
+        "name": "William Thompson",
+        "email": "william@example.com",
+        "title": "Colorful Dreams",
+        "message": "This wallpaper sparks joy!",
+        "time": "16:00:10, 7 July 2023"
+    },
+    {
+        "id": 16,
+        "name": "Grace Wilson",
+        "email": "grace@example.com",
+        "title": "Calm Lake",
+        "message": "Soothing and peaceful!",
+        "time": "16:05:19, 7 July 2023"
+    },
+    {
+        "id": 17,
+        "name": "James Anderson",
+        "email": "james@example.com",
+        "title": "Spring Blossoms",
+        "message": "Nature's beauty at its best!",
+        "time": "16:10:52, 7 July 2023"
+    },
+    {
+        "id": 18,
+        "name": "Charlotte Davis",
+        "email": "charlotte@example.com",
+        "title": "Serene Waterfall",
+        "message": "Relaxing and refreshing!",
+        "time": "16:15:37, 7 July 2023"
+    },
+    {
+        "id": 19,
+        "name": "Benjamin Wilson",
+        "email": "benjamin@example.com",
+        "title": "City Skylines",
+        "message": "Captivating urban landscapes!",
+        "time": "16:20:44, 7 July 2023"
+    },
+    {
+        "id": 20,
+        "name": "Victoria Thompson",
+        "email": "victoria@example.com",
+        "title": "Autumn Vibes",
+        "message": "Fall colors are the best!",
+        "time": "16:25:23, 7 July 2023"
+    }
+];
+
+// USERS
+export const users = [
+    {
+      id: 0,
+      name: 'Alex Costa',
+      email: 'example@gmail.com',
+      phone: '+0880127836521',
+      status: true
+    },
+    {
+      id: 1,
+      name: 'Emily Johnson',
+      email: 'emily@example.com',
+      phone: '+0880123456789',
+      status: true
+    },
+    {
+      id: 2,
+      name: 'Michael Smith',
+      email: 'michael@example.com',
+      phone: '+0880987654321',
+      status: true
+    },
+    {
+      id: 3,
+      name: 'Sophia Davis',
+      email: 'sophia@example.com',
+      phone: '+0880765432109',
+      status: true
+    },
+    {
+      id: 4,
+      name: 'Daniel Wilson',
+      email: 'daniel@example.com',
+      phone: '+0880543210987',
+      status: true
+    },
+    {
+      id: 5,
+      name: 'Olivia Martinez',
+      email: 'olivia@example.com',
+      phone: '+0880321098765',
+      status: true
+    },
+    {
+      id: 6,
+      name: 'James Anderson',
+      email: 'james@example.com',
+      phone: '+0880109876543',
+      status: true
+    },
+    {
+      id: 7,
+      name: 'Ava Garcia',
+      email: 'ava@example.com',
+      phone: '+0880987654321',
+      status: true
+    },
+    {
+      id: 8,
+      name: 'Noah Thompson',
+      email: 'noah@example.com',
+      phone: '+0880765432109',
+      status: true
+    },
+    {
+      id: 9,
+      name: 'Mia Wilson',
+      email: 'mia@example.com',
+      phone: '+0880543210987',
+      status: true
+    },
+    {
+      id: 10,
+      name: 'William Taylor',
+      email: 'william@example.com',
+      phone: '+0880321098765',
+      status: true
+    },
+    {
+      id: 11,
+      name: 'Emma Johnson',
+      email: 'emma@example.com',
+      phone: '+0880109876543',
+      status: true
+    },
+    {
+      id: 12,
+      name: 'Liam Davis',
+      email: 'liam@example.com',
+      phone: '+0880987654321',
+      status: true
+    },
+    {
+      id: 13,
+      name: 'Isabella Martinez',
+      email: 'isabella@example.com',
+      phone: '+0880765432109',
+      status: true
+    },
+    {
+      id: 14,
+      name: 'Sophia Thompson',
+      email: 'sophia@example.com',
+      phone: '+0880543210987',
+      status: true
+    },
+    {
+      id: 15,
+      name: 'Logan Wilson',
+      email: 'logan@example.com',
+      phone: '+0880321098765',
+      status: true
+    },
+    {
+      id: 16,
+      name: 'Amelia Taylor',
+      email: 'amelia@example.com',
+      phone: '+0880109876543',
+      status: true
+    },
+    {
+      id: 17,
+      name: 'Benjamin Davis',
+      email: 'benjamin@example.com',
+      phone: '+0880987654321',
+      status: true
+    },
+    {
+      id: 18,
+      name: 'Charlotte Wilson',
+      email: 'charlotte@example.com',
+      phone: '+0880765432109',
+      status: true
+    },
+    {
+      id: 19,
+      name: 'Lucas Anderson',
+      email: 'lucas@example.com',
+      phone: '+0880543210987',
+      status: true
+    }
+  ];
+  

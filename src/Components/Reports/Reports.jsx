@@ -7,51 +7,10 @@ import { Delete } from '@mui/icons-material';
 import { AdminContext } from '../../App';
 import PopUpDialog from '../PopUpDialog/PopUpDialog';
 import SnackBar from '../SnackBar/SnackBar';
+import { reports } from '../../../Store/Store,jsx';
 
-const fakeReports = [
-    {
-        id: 0,
-        name: 'John Doe',
-        email: 'john001@gmail.com',
-        title: 'lorem doing breakfast',
-        massage: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit doloremque architecto in minus officia recusandae cumque facere. Temporibus, excepturi atque. Laudantium itaque ',
-    },
-    {
-        id: 1,
-        name: 'John Doe',
-        email: 'john001@gmail.com',
-        title: 'lorem doing breakfast',
-        massage: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit doloremque architecto in minus officia recusandae cumque facere. Temporibus, excepturi atque. Laudantium itaque eveniet, aperiam commodi veritatis similique minus suscipit',
-    },
-    {
-        id: 2,
-        name: 'John Doe',
-        email: 'john001@gmail.com',
-        title: 'lorem doing breakfast',
-        massage: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit doloremque architecto in minus officia recusandae cumque facere. Temporibus, excepturi atque. Laudantium itaque eveniet, aperiam commodi veritatis similique minus suscipit',
-    },
-    {
-        id: 3,
-        name: 'John Doe',
-        email: 'john001@gmail.com',
-        title: 'lorem doing breakfast',
-        massage: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit doloremque architecto in minus officia recusandae cumque facere. Temporibus, excepturi atque. Laudantium itaque eveniet, aperiam commodi veritatis similique minus suscipit',
-    },
-    {
-        id: 4,
-        name: 'John Doe',
-        email: 'john001@gmail.com',
-        title: 'lorem doing breakfast',
-        massage: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit doloremque architecto in minus officia recusandae cumque facere. Temporibus, excepturi atque. Laudantium itaque eveniet, aperiam commodi veritatis similique minus suscipit',
-    },
-    {
-        id: 5,
-        name: 'John Doe',
-        email: 'john001@gmail.com',
-        title: 'lorem doing breakfast',
-        massage: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit doloremque architecto in minus officia recusandae cumque facere. Temporibus, excepturi atque. Laudantium itaque eveniet, aperiam commodi veritatis similique minus suscipit',
-    }
-]
+const fakeReports = reports;
+
 const Reports = () => {
 
     // Using Context API
@@ -137,7 +96,7 @@ const Reports = () => {
                             }}>
                             <TableHead>
                                 <TableRow>
-                                    {['Id', 'Name', 'Email', 'Title', 'Massage', 'Date', 'Action'].map((th, i) => {
+                                    {['Id', 'Name', 'Email', 'Title', 'Message', 'Date', 'Action'].map((th, i) => {
                                         return (
                                             <TableCell
                                                 key={i}
@@ -154,7 +113,7 @@ const Reports = () => {
 
                             <TableBody>
                                 {reports.map(report => {
-                                    const { id, name, email, title, massage } = report;
+                                    const { id, name, email, title, message } = report;
 
                                     return (
                                         <TableRow
@@ -190,7 +149,7 @@ const Reports = () => {
 
                                             {/* Massage */}
                                             <TableCell align="left">
-                                                {massage}
+                                                {message}
                                             </TableCell>
 
                                             {/* Date */}
