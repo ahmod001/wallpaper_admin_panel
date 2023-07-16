@@ -8,35 +8,36 @@ import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import PopUpDialog from '../PopUpDialog/PopUpDialog';
 import SnackBar from '../SnackBar/SnackBar';
+import  admobBanner  from "../../assets/admob.webp";
 
 const fakeAds = [
     {
         id: 0,
-        title: '01 Minutes School',
+        title: 'AdMob',
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse officiis pariatur repudiandae minus perspiciatis',
         img: 'https://cdn.10minuteschool.com/images/images/english-master-bundle-course-sqr-v2.jpg',
-        affiliate_link: 'https://10ms.io/iyyeaN'
+        affiliate_link: '#'
     },
     {
         id: 1,
-        title: '01 Minutes School',
+        title: 'AdMob',
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse officiis pariatur repudiandae minus perspiciatis',
         img: 'https://cdn.10minuteschool.com/images/images/english-master-bundle-course-sqr-v2.jpg',
-        affiliate_link: 'https://10ms.io/iyyeaN'
+        affiliate_link: '#'
     },
     {
         id: 2,
-        title: '01 Minutes School',
+        title: 'AdMob',
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse officiis pariatur repudiandae minus perspiciatis',
         img: 'https://cdn.10minuteschool.com/images/images/english-master-bundle-course-sqr-v2.jpg',
-        affiliate_link: 'https://10ms.io/iyyeaN'
+        affiliate_link: '#'
     },
     {
         id: 3,
-        title: '01 Minutes School',
+        title: 'AdMob',
         description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse officiis pariatur repudiandae minus perspiciatis',
         img: 'https://cdn.10minuteschool.com/images/images/english-master-bundle-course-sqr-v2.jpg',
-        affiliate_link: 'https://10ms.io/iyyeaN'
+        affiliate_link: '#'
     }
 ]
 
@@ -46,7 +47,7 @@ const AdMobAds = () => {
     const { CurrentPage } = useContext(AdminContext)
     const [currentPage, setCurrentPage] = CurrentPage;
     setTimeout(() => {
-        setCurrentPage('AdMob Ads')
+        setCurrentPage('AdMobs')
     }, 1);
     setLocalStorage('componentId', 5)
     const navigate = useNavigate()
@@ -99,7 +100,7 @@ const AdMobAds = () => {
                     placeholder='Search By Title...'
                     button={true}
                     btnNavigateTo='/ads/add'
-                    buttonName='AdMob Ads' />
+                    buttonName='AdMobs' />
 
                 {/* Table */}
                 <TableContainer
@@ -160,7 +161,7 @@ const AdMobAds = () => {
                                                 align="left">
                                                 <Fade
                                                     in={true}>
-                                                    <img className='tw-h-20 tw-rounded-sm' src={img} loading="lazy" alt={title} />
+                                                    <img className='tw-h-20 tw-rounded-sm' src={admobBanner} loading="lazy" alt={title} />
                                                 </Fade>
                                             </TableCell>
 

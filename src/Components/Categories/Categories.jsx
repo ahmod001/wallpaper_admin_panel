@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { AdminContext } from '../../App';
 import PopUpDialog from "../PopUpDialog/PopUpDialog";
 import SnackBar from '../SnackBar/SnackBar';
+import categoryImg from "../../assets/category.webp";
 
 const fakeCategories = [
     {
@@ -164,7 +165,7 @@ const Categories = () => {
                                                     onDurationChange={() => 1000}>
                                                     <img
                                                         className='tw-h-20 tw-rounded-sm'
-                                                        src={img}
+                                                        src={categoryImg}
                                                         loading='lazy'
                                                         alt={name} />
                                                 </Fade>
